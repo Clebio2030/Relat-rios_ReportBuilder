@@ -22,6 +22,7 @@ Este repositório foi construído no formato de **Rede Neural de Conhecimento (K
 ### ⚖️ 3. Regras de Negócio e Fiscal
 * [[EMISSAO_FISCAL_VS_NAO_EMITIDO]] — Regras para identificar pedidos emitidos com documento fiscal vs não emitidos.
 * [[FORMAS_DE_PAGAMENTO_E_DINHEIRO]] — Como classificar recebimentos em Dinheiro (`LIKE '%DINHEIRO%'`) vs meios eletrônicos.
+* [[REGRAS_DE_FILTROS_RELATORIOS]] — Regra 1 (Depósito apenas filtra tudo) e Regra 2 (Período e Empresa).
 
 ### 🔍 4. Views e Procedimentos Criados
 * [[AUDITORIA_ENTRADA_SAIDA]] — Auditoria acumulada fiscal de compras vs vendas com eliminação de furos irreais.

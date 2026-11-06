@@ -40,6 +40,17 @@ Relatórios_IA/
 
 ---
 
+## 📐 Regras Oficiais de Filtragem nos Relatórios
+
+1. **Regra 1 — Filtro de Depósito apenas (`CDDEPOSITO`):**
+   * **Finalidade:** Auditoria de estoque físico, conferência de galpão e inventário (`EntradaXSaida.rtm`).
+   * **Comportamento:** Ao selecionar apenas o Depósito (ex: `WHERE CDDEPOSITO = 1004` CASA X ou `1002` ZÉ GRANDE), o relatório **filtra tudo** correspondente àquele estoque físico específico de forma abrangente e consolidada.
+2. **Regra 2 — Filtro de Período e Empresa (`DTSAIDA` + `IDEMPRESA`):**
+   * **Finalidade:** Auditoria fiscal (SEFAZ / DIMP), conciliação financeira e vendas sem documento fiscal (`SemFiscal.rtm`).
+   * **Comportamento:** Exige a combinação obrigatória da **Empresa emitente** (`IDEMPRESA = 1, 2, 3 ou 4`) e o **Período de movimentação** (`Data Inicial` a `Data Final`), garantindo a apuração exata por CNPJ e competência.
+
+---
+
 ## 🚦 Tabela Resumo de Status (ERP Automec)
 
 ### Saída de Estoque (`SAIDAESTOQUE.STATUS`)

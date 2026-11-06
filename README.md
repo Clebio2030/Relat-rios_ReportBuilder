@@ -83,3 +83,4 @@ Relat-rios_ReportBuilder/
    node render_report.js
    node render_sem_fiscal.js
    ```
+

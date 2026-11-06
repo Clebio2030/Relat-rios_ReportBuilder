@@ -39,6 +39,14 @@ Este arquivo é lido automaticamente pelo assistente em todas as sessões e conv
 * **Status 3 com Nota Cancelada:** Mapeado em `TIPO_OPERACAO` como `'PEDIDO'` (quando o status é 1 ou 3 com nota cancelada).
 * **Risco Fiscal:** Vendas em PIX (`MEIO_PAGTO = 17`) ou Cartão (`MEIO_PAGTO = 03/04`) que estejam em `STATUS = 1` são divergências fiscais com a SEFAZ (cruzamento DIMP).
 
+## 📐 Regras Oficiais de Filtragem dos Relatórios
+1. **Regra 1 — Filtro de Depósito apenas (`CDDEPOSITO`):**
+   * **Finalidade:** Estoque físico, inventário e auditoria de mercadorias (Entradas vs Saídas).
+   * **Comportamento:** Ao filtrar apenas o Depósito (ex: `WHERE CDDEPOSITO = 1004` CASA X ou `1002` ZÉ GRANDE), o relatório **filtra tudo** daquele estoque físico específico de forma completa e consolidada, independente de empresa emissora.
+2. **Regra 2 — Filtro de Período e Empresa (`DTSAIDA/DTMOV` + `IDEMPRESA`):**
+   * **Finalidade:** Auditoria fiscal (DIMP / SEFAZ), faturamento, conciliação contábil e vendas sem documento fiscal.
+   * **Comportamento:** Exige a combinação obrigatória da **Empresa emitente** (`IDEMPRESA = 1, 2, 3 ou 4`) e o **Período** (`Data Inicial` a `Data Final`), garantindo a apuração exata por CNPJ e competência.
+
 ## 🔍 Objetos Criados
 * **Views:**
   * `NAO_EMITIDO_PEDIDOS` (pedidos/trocas não emitidos que não são dinheiro).
