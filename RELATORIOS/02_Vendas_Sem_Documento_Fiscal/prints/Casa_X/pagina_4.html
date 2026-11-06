@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+    size: 215.9mm 279.4mm;
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    width: 215.9mm;
+    height: 279.4mm;
+    padding-top: 6.35mm;
+    padding-left: 6.35mm;
+    padding-right: 6.35mm;
+    padding-bottom: 11.9mm;
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+.report-container {
+    width: 203.2mm;
+    height: 261.15mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.title-band {
+    text-align: center;
+    padding-bottom: 1mm;
+    margin-bottom: 1mm;
+}
+.title-band h1 {
+    font-size: 17pt;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.2px;
+}
+.header-band {
+    border-bottom: 1.2px solid #000000;
+    padding-bottom: 1mm;
+    margin-bottom: 1mm;
+}
+.company-title {
+    font-size: 13.5pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2mm;
+    color: #000000;
+}
+.columns-header {
+    display: flex;
+    font-size: 10.5pt;
+    font-weight: bold;
+    color: #000000;
+}
+.col-h-data { width: 24mm; }
+.col-h-pedido { width: 24mm; }
+.col-h-cliente { width: 85mm; }
+.col-h-valor { width: 32mm; text-align: right; }
+.col-h-tipo { width: 38mm; text-align: left; padding-left: 6mm; }
+
+.details-container {
+    flex: 1;
+}
+.detail-item {
+    height: 9.53mm;
+    display: flex;
+    align-items: center;
+    border-bottom: 0.5pt solid #d0d0d0;
+    font-size: 9.5pt;
+    color: #000000;
+}
+.d-data { width: 24mm; font-size: 9.5pt; }
+.d-pedido { width: 24mm; font-weight: bold; }
+.d-cliente { width: 85mm; display: flex; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.d-cdcli { width: 16mm; text-align: right; padding-right: 2.5mm; font-weight: 500; color: #444; }
+.d-nomecli { width: 68mm; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.d-valor { width: 32mm; text-align: right; font-weight: bold; }
+.d-tipo { width: 38mm; padding-left: 6mm; font-size: 9pt; font-weight: 500; color: #333; }
+
+.summary-band {
+    margin-top: 2mm;
+    padding-top: 1.5mm;
+    border-top: 2px solid #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.sum-group {
+    display: flex;
+    align-items: baseline;
+}
+.sum-label {
+    font-size: 15pt;
+    font-weight: bold;
+    margin-right: 3mm;
+}
+.sum-val {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #000000;
+}
+.page-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 8.5pt;
+    color: #444444;
+}
+.page-footer-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 8pt;
+    color: #777777;
+}
+</style>
+</head>
+<body>
+<div class="report-container">
+
+    <div class="header-band">
+        <div class="company-title">CASA X CONSTRUCAO DECORACAO E UTILIDADES DO LAR LTDA</div>
+        <div class="columns-header">
+            <div class="col-h-data">Data:</div>
+            <div class="col-h-pedido">Nr. Pedido:</div>
+            <div class="col-h-cliente">Cliente:</div>
+            <div class="col-h-valor">Valor:</div>
+            <div class="col-h-tipo">Tipo:</div>
+        </div>
+    </div>
+
+    <div class="details-container">
+
+        <div class="detail-item">
+            <div class="d-data">15/10/2026</div>
+            <div class="d-pedido">2855</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50308</span>
+                <span class="d-nomecli">CARLOS EDUARDO BRITO DA SILVA | 50308</span>
+            </div>
+            <div class="d-valor">-311,34</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">15/10/2026</div>
+            <div class="d-pedido">2845</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">34871</span>
+                <span class="d-nomecli">DEBORA LUCIA MELO | 34871</span>
+            </div>
+            <div class="d-valor">173,15</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">15/10/2026</div>
+            <div class="d-pedido">2840</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">37546</span>
+                <span class="d-nomecli">FABIO DO BAR | 37546</span>
+            </div>
+            <div class="d-valor">0,69</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">14/10/2026</div>
+            <div class="d-pedido">2820</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">2,49</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">14/10/2026</div>
+            <div class="d-pedido">2818</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">19,90</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">14/10/2026</div>
+            <div class="d-pedido">2816</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50305</span>
+                <span class="d-nomecli">ANA LUCIA BARBOSA | 50305</span>
+            </div>
+            <div class="d-valor">1.800,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">13/10/2026</div>
+            <div class="d-pedido">2797</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">46617</span>
+                <span class="d-nomecli">ATHLOS FIT ACADEMIA | 46617</span>
+            </div>
+            <div class="d-valor">1.040,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">13/10/2026</div>
+            <div class="d-pedido">2796</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">-32,14</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">13/10/2026</div>
+            <div class="d-pedido">2794</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">46617</span>
+                <span class="d-nomecli">ATHLOS FIT ACADEMIA | 46617</span>
+            </div>
+            <div class="d-valor">229,85</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">13/10/2026</div>
+            <div class="d-pedido">2792</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">47252</span>
+                <span class="d-nomecli">ANA CLEIDE DE CASTRO BARBOSA | 47252</span>
+            </div>
+            <div class="d-valor">257,96</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">13/10/2026</div>
+            <div class="d-pedido">2789</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50300</span>
+                <span class="d-nomecli">LUCIENE GONCALVES DE LIRA | 50300</span>
+            </div>
+            <div class="d-valor">663,16</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">13/10/2026</div>
+            <div class="d-pedido">2785</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">43681</span>
+                <span class="d-nomecli">LETICIA OU ADALBERTO | 43681</span>
+            </div>
+            <div class="d-valor">640,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">12/10/2026</div>
+            <div class="d-pedido">2758</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">48081</span>
+                <span class="d-nomecli">SIRI LANCHES | 48081</span>
+            </div>
+            <div class="d-valor">198,46</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">10/10/2026</div>
+            <div class="d-pedido">2750</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50292</span>
+                <span class="d-nomecli">GILCELIA DOS SANTOS | 50292</span>
+            </div>
+            <div class="d-valor">1.802,02</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">10/10/2026</div>
+            <div class="d-pedido">2746</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">41916</span>
+                <span class="d-nomecli">PATRICIA NASCIMENTO PACHECO | 41916</span>
+            </div>
+            <div class="d-valor">849,66</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">10/10/2026</div>
+            <div class="d-pedido">2732</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">59,59</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">10/10/2026</div>
+            <div class="d-pedido">2727</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50287</span>
+                <span class="d-nomecli">CLAUDIA VALERIA DE OLIVEIRA FELISBERTO  | 50287</span>
+            </div>
+            <div class="d-valor">705,79</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">10/10/2026</div>
+            <div class="d-pedido">2715</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50283</span>
+                <span class="d-nomecli">MARCOS LUIZ DA SILVA RIBEIRO | 50283</span>
+            </div>
+            <div class="d-valor">227,74</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">09/10/2026</div>
+            <div class="d-pedido">2713</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">17474</span>
+                <span class="d-nomecli">LUIZ LEPONO  | 17474</span>
+            </div>
+            <div class="d-valor">486,99</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">09/10/2026</div>
+            <div class="d-pedido">2702</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">33220</span>
+                <span class="d-nomecli">TATIANE MUNIZ DA SILVA | 33220</span>
+            </div>
+            <div class="d-valor">592,91</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">09/10/2026</div>
+            <div class="d-pedido">2701</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50281</span>
+                <span class="d-nomecli">MARIA DUTRA | 50281</span>
+            </div>
+            <div class="d-valor">91,98</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">09/10/2026</div>
+            <div class="d-pedido">2700</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">40253</span>
+                <span class="d-nomecli">GIVAGO FAISCA CAMILO | 40253</span>
+            </div>
+            <div class="d-valor">1.513,91</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">08/10/2026</div>
+            <div class="d-pedido">2676</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50277</span>
+                <span class="d-nomecli">ALISO MATHEUS DO NASCIMENTO PENIDO | 50277</span>
+            </div>
+            <div class="d-valor">575,76</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">08/10/2026</div>
+            <div class="d-pedido">2658</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">-27,60</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">06/10/2026</div>
+            <div class="d-pedido">2610</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50254</span>
+                <span class="d-nomecli">TAINA ALVES DE MORAIS  | 50254</span>
+            </div>
+            <div class="d-valor">134,26</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+   </div>
+    <div class="page-footer-left">ReportBuilder 21.02 — FireDAC (NAO_EMITIDO_PEDIDOS)</div>
+    <div class="page-footer">Página 4 de 5</div>
+</div>
+</body>
+</html>

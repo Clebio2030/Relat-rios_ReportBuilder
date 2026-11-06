@@ -1,0 +1,515 @@
+{
+  "nodes": [
+    {
+      "id": "g0",
+      "type": "group",
+      "label": "Tabelas e Modelagem do ERP Automec",
+      "x": 0,
+      "y": 0,
+      "width": 880,
+      "height": 420,
+      "color": "1"
+    },
+    {
+      "id": "n_configuracao",
+      "type": "file",
+      "file": "CONFIGURACAO.md",
+      "x": 20,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ctareceber_prov",
+      "type": "file",
+      "file": "CTARECEBER_PROV.md",
+      "x": 220,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_01_tabelas_configuracao",
+      "type": "file",
+      "file": "Doc Tabela CONFIGURACAO.md",
+      "x": 420,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_01_tabelas_ctareceber_prov",
+      "type": "file",
+      "file": "Doc Tabela CTARECEBER_PROV.md",
+      "x": 620,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_01_tabelas_notafiscal",
+      "type": "file",
+      "file": "Doc Tabela NOTAFISCAL.md",
+      "x": 20,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_01_tabelas_saidaestoque",
+      "type": "file",
+      "file": "Doc Tabela SAIDAESTOQUE.md",
+      "x": 220,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "type": "file",
+      "file": "NAO_EMITIDO_PEDIDOS.md",
+      "x": 420,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_nao_emitido_pedidos",
+      "type": "file",
+      "file": "NAO_EMITIDO_PEDIDOS.sql.md",
+      "x": 620,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_notafiscal",
+      "type": "file",
+      "file": "NOTAFISCAL.md",
+      "x": 20,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_saidaestoque",
+      "type": "file",
+      "file": "SAIDAESTOQUE.md",
+      "x": 220,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g1",
+      "type": "group",
+      "label": "Ciclo de Vida e Status do Pedido",
+      "x": 960,
+      "y": 0,
+      "width": 660,
+      "height": 420,
+      "color": "2"
+    },
+    {
+      "id": "n_rationale_agrupamento_1_linha",
+      "type": "file",
+      "file": "Agrupamento 1 Linha por Pedido (GROUP BY SE.NRPEDIDO).md",
+      "x": 980,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "type": "file",
+      "file": "Dicion\u00e1rio de Status SAIDAESTOQUE.md",
+      "x": 1180,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "type": "file",
+      "file": "Diferen\u00e7a Pedido Normal vs Troca.md",
+      "x": 1380,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "type": "file",
+      "file": "Especifica\u00e7\u00e3o da View NAO_EMITIDO_PEDIDOS.md",
+      "x": 980,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_concept_status_0_em_aberto",
+      "type": "file",
+      "file": "Status 0 Pedido em Aberto (Digita\u00e7\u00e3o  Or\u00e7amento).md",
+      "x": 1180,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_concept_status_1_pedido",
+      "type": "file",
+      "file": "Status 1 Pedido Finalizado sem Documento Fiscal.md",
+      "x": 1380,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_concept_status_2_42_cancelado",
+      "type": "file",
+      "file": "Status 2 e 42 Cancelados  Estornados.md",
+      "x": 980,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_concept_status_40_troca",
+      "type": "file",
+      "file": "Status 40 Troca  Devolu\u00e7\u00e3o de Mercadoria.md",
+      "x": 1180,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g2",
+      "type": "group",
+      "label": "Base de Conhecimento e Rede Neural",
+      "x": 1700,
+      "y": 0,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_automec_brain_readme",
+      "type": "file",
+      "file": "C\u00e9rebro de Notas Automec.md",
+      "x": 1720,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_agents_md",
+      "type": "file",
+      "file": "Diretrizes & Conhecimento Permanente AGENTS.md",
+      "x": 1920,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_concept_database_firebird",
+      "type": "file",
+      "file": "Firebird 5.0 DB (MIAUTOMEC.FDB).md",
+      "x": 1720,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_rede_neural_html",
+      "type": "file",
+      "file": "Visualizador Rede Neural HTML.md",
+      "x": 1920,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g3",
+      "type": "group",
+      "label": "Meios de Pagamento e Regra do Dinheiro",
+      "x": 0,
+      "y": 500,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_automec_brain_01_tabelas_recebto",
+      "type": "file",
+      "file": "Doc Tabela RECEBTO.md",
+      "x": 20,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_recebto",
+      "type": "file",
+      "file": "RECEBTO.md",
+      "x": 220,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "type": "file",
+      "file": "Regra Formas de Pagamento e Dinheiro.md",
+      "x": 20,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_rationale_exclusao_dinheiro",
+      "type": "file",
+      "file": "Regra de Exclus\u00e3o de Dinheiro na Auditoria.md",
+      "x": 220,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g4",
+      "type": "group",
+      "label": "Auditoria Fiscal e Risco DIMP",
+      "x": 960,
+      "y": 500,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "type": "file",
+      "file": "Regra Emiss\u00e3o Fiscal vs N\u00e3o Emitido.md",
+      "x": 980,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_rationale_risco_fiscal_dimp",
+      "type": "file",
+      "file": "Risco Fiscal DIMP (Cruzamento Cart\u00e3oPIX com SEFAZ).md",
+      "x": 1180,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_concept_status_3_emitido_fiscal",
+      "type": "file",
+      "file": "Status 3 Venda com Emiss\u00e3o Fiscal Autorizada.md",
+      "x": 980,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_nao_emitido_pedidos_nao_emitido_pedidos_configuracao",
+      "fromNode": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "toNode": "n_configuracao",
+      "label": "reads_from [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_01_tabelas_configuracao_configuracao",
+      "fromNode": "n_automec_brain_01_tabelas_configuracao",
+      "toNode": "n_configuracao",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_nao_emitido_pedidos_nao_emitido_pedidos_ctareceber_prov",
+      "fromNode": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "toNode": "n_ctareceber_prov",
+      "label": "reads_from [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_01_tabelas_ctareceber_prov_ctareceber_prov",
+      "fromNode": "n_automec_brain_01_tabelas_ctareceber_prov",
+      "toNode": "n_ctareceber_prov",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_nao_emitido_pedidos_nao_emitido_pedidos_nao_emitido_pedidos",
+      "fromNode": "n_nao_emitido_pedidos",
+      "toNode": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_nao_emitido_pedidos_nao_emitido_pedidos_saidaestoque",
+      "fromNode": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "toNode": "n_saidaestoque",
+      "label": "reads_from [EXTRACTED]"
+    },
+    {
+      "id": "e_nao_emitido_pedidos_nao_emitido_pedidos_recebto",
+      "fromNode": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "toNode": "n_recebto",
+      "label": "reads_from [EXTRACTED]"
+    },
+    {
+      "id": "e_nao_emitido_pedidos_nao_emitido_pedidos_notafiscal",
+      "fromNode": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "toNode": "n_notafiscal",
+      "label": "reads_from [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_04_views_e_consultas_nao_emitido_pedidos_nao_emitido_pedidos_nao_emitido_pedidos",
+      "fromNode": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "toNode": "n_nao_emitido_pedidos_nao_emitido_pedidos",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_01_tabelas_notafiscal_notafiscal",
+      "fromNode": "n_automec_brain_01_tabelas_notafiscal",
+      "toNode": "n_notafiscal",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_01_tabelas_saidaestoque_saidaestoque",
+      "fromNode": "n_automec_brain_01_tabelas_saidaestoque",
+      "toNode": "n_saidaestoque",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_01_tabelas_recebto_recebto",
+      "fromNode": "n_automec_brain_01_tabelas_recebto",
+      "toNode": "n_recebto",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro_recebto",
+      "fromNode": "n_automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "toNode": "n_recebto",
+      "label": "references [INFERRED]"
+    },
+    {
+      "id": "e_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque_concept_status_0_em_aberto",
+      "fromNode": "n_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "toNode": "n_concept_status_0_em_aberto",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_04_views_e_consultas_nao_emitido_pedidos_concept_status_0_em_aberto",
+      "fromNode": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "toNode": "n_concept_status_0_em_aberto",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca_concept_status_1_pedido",
+      "fromNode": "n_automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "toNode": "n_concept_status_1_pedido",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque_concept_status_1_pedido",
+      "fromNode": "n_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "toNode": "n_concept_status_1_pedido",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_04_views_e_consultas_nao_emitido_pedidos_concept_status_1_pedido",
+      "fromNode": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "toNode": "n_concept_status_1_pedido",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido_concept_status_1_pedido",
+      "fromNode": "n_automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "toNode": "n_concept_status_1_pedido",
+      "label": "conceptually_related_to [INFERRED]"
+    },
+    {
+      "id": "e_automec_brain_04_views_e_consultas_nao_emitido_pedidos_concept_status_2_42_cancelado",
+      "fromNode": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "toNode": "n_concept_status_2_42_cancelado",
+      "label": "cites [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque_concept_status_2_42_cancelado",
+      "fromNode": "n_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "toNode": "n_concept_status_2_42_cancelado",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca_concept_status_40_troca",
+      "fromNode": "n_automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "toNode": "n_concept_status_40_troca",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque_concept_status_40_troca",
+      "fromNode": "n_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "toNode": "n_concept_status_40_troca",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_04_views_e_consultas_nao_emitido_pedidos_concept_status_40_troca",
+      "fromNode": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "toNode": "n_concept_status_40_troca",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque_concept_status_3_emitido_fiscal",
+      "fromNode": "n_automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "toNode": "n_concept_status_3_emitido_fiscal",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_04_views_e_consultas_nao_emitido_pedidos_rationale_agrupamento_1_linha",
+      "fromNode": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "toNode": "n_rationale_agrupamento_1_linha",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_04_views_e_consultas_nao_emitido_pedidos_rationale_exclusao_dinheiro",
+      "fromNode": "n_automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "toNode": "n_rationale_exclusao_dinheiro",
+      "label": "references [INFERRED]"
+    },
+    {
+      "id": "e_agents_md_concept_database_firebird",
+      "fromNode": "n_agents_md",
+      "toNode": "n_concept_database_firebird",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_agents_md_automec_brain_readme",
+      "fromNode": "n_agents_md",
+      "toNode": "n_automec_brain_readme",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_readme_automec_brain_rede_neural_html",
+      "fromNode": "n_automec_brain_readme",
+      "toNode": "n_automec_brain_rede_neural_html",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro_rationale_exclusao_dinheiro",
+      "fromNode": "n_automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "toNode": "n_rationale_exclusao_dinheiro",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido_concept_status_3_emitido_fiscal",
+      "fromNode": "n_automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "toNode": "n_concept_status_3_emitido_fiscal",
+      "label": "conceptually_related_to [INFERRED]"
+    },
+    {
+      "id": "e_automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido_rationale_risco_fiscal_dimp",
+      "fromNode": "n_automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "toNode": "n_rationale_risco_fiscal_dimp",
+      "label": "rationale_for [EXTRACTED]"
+    }
+  ]
+}

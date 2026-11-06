@@ -1,0 +1,181 @@
+{
+  "communities": {
+    "0": [
+      "automec_brain_01_tabelas_configuracao",
+      "automec_brain_01_tabelas_ctareceber_prov",
+      "automec_brain_01_tabelas_notafiscal",
+      "automec_brain_01_tabelas_saidaestoque",
+      "configuracao",
+      "ctareceber_prov",
+      "nao_emitido_pedidos",
+      "nao_emitido_pedidos_nao_emitido_pedidos",
+      "notafiscal",
+      "saidaestoque"
+    ],
+    "1": [
+      "automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "concept_status_0_em_aberto",
+      "concept_status_1_pedido",
+      "concept_status_2_42_cancelado",
+      "concept_status_40_troca",
+      "rationale_agrupamento_1_linha"
+    ],
+    "2": [
+      "agents_md",
+      "automec_brain_readme",
+      "automec_brain_rede_neural_html",
+      "concept_database_firebird"
+    ],
+    "3": [
+      "automec_brain_01_tabelas_recebto",
+      "automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "rationale_exclusao_dinheiro",
+      "recebto"
+    ],
+    "4": [
+      "automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "concept_status_3_emitido_fiscal",
+      "rationale_risco_fiscal_dimp"
+    ]
+  },
+  "cohesion": {
+    "0": 0.2,
+    "1": 0.39285714285714285,
+    "2": 0.5,
+    "3": 0.5,
+    "4": 0.6666666666666666
+  },
+  "gods": [
+    {
+      "id": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "label": "NAO_EMITIDO_PEDIDOS",
+      "degree": 7
+    },
+    {
+      "id": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "label": "Especificação da View NAO_EMITIDO_PEDIDOS",
+      "degree": 7
+    },
+    {
+      "id": "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "label": "Dicionário de Status SAIDAESTOQUE",
+      "degree": 5
+    },
+    {
+      "id": "concept_status_1_pedido",
+      "label": "Status 1: Pedido Finalizado sem Documento Fiscal",
+      "degree": 4
+    },
+    {
+      "id": "automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "label": "Regra Emissão Fiscal vs Não Emitido",
+      "degree": 3
+    },
+    {
+      "id": "concept_status_40_troca",
+      "label": "Status 40: Troca / Devolução de Mercadoria",
+      "degree": 3
+    },
+    {
+      "id": "agents_md",
+      "label": "Diretrizes & Conhecimento Permanente AGENTS.md",
+      "degree": 2
+    },
+    {
+      "id": "automec_brain_readme",
+      "label": "Cérebro de Notas Automec",
+      "degree": 2
+    },
+    {
+      "id": "automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "label": "Diferença Pedido Normal vs Troca",
+      "degree": 2
+    },
+    {
+      "id": "automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "label": "Regra Formas de Pagamento e Dinheiro",
+      "degree": 2
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Especificação da View NAO_EMITIDO_PEDIDOS",
+      "target": "NAO_EMITIDO_PEDIDOS",
+      "source_files": [
+        "AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md",
+        "NAO_EMITIDO_PEDIDOS.sql"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (code ↔ doc); connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "Especificação da View NAO_EMITIDO_PEDIDOS",
+      "target": "Regra de Exclusão de Dinheiro na Auditoria",
+      "source_files": [
+        "AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md",
+        "AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities; peripheral node `Regra de Exclusão de Dinheiro na Auditoria` unexpectedly reaches hub `Especificação da View NAO_EMITIDO_PEDIDOS`"
+    },
+    {
+      "source": "Diretrizes & Conhecimento Permanente AGENTS.md",
+      "target": "Cérebro de Notas Automec",
+      "source_files": [
+        "AGENTS.md",
+        "AUTOMEC_BRAIN/README.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "conceptually_related_to",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "Regra Emissão Fiscal vs Não Emitido",
+      "target": "Status 1: Pedido Finalizado sem Documento Fiscal",
+      "source_files": [
+        "AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+        "AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "Regra Emissão Fiscal vs Não Emitido",
+      "target": "Status 3: Venda com Emissão Fiscal Autorizada",
+      "source_files": [
+        "AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+        "AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `NAO_EMITIDO_PEDIDOS` connect `Community 0` to `Community 1`, `Community 3`?",
+      "why": "High betweenness centrality (0.500) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Doc Tabela CONFIGURACAO`, `Doc Tabela CTARECEBER_PROV`, `Doc Tabela NOTAFISCAL` to the rest of the system?",
+      "why": "7 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Especificação da View NAO_EMITIDO_PEDIDOS` connect `Community 1` to `Community 0`, `Community 3`?",
+      "why": "High betweenness centrality (0.436) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Status 1: Pedido Finalizado sem Documento Fiscal` connect `Community 1` to `Community 4`?",
+      "why": "High betweenness centrality (0.158) - this node is a cross-community bridge."
+    }
+  ]
+}

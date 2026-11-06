@@ -1,0 +1,40 @@
+{
+  "files": {
+    "code": [
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\NAO_EMITIDO_PEDIDOS.sql"
+    ],
+    "document": [
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AGENTS.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\CONFIGURACAO.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\CTARECEBER_PROV.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\NOTAFISCAL.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\RECEBTO.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\SAIDAESTOQUE.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\DIFERENCA_PEDIDO_VS_TROCA.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\FORMAS_DE_PAGAMENTO_E_DINHEIRO.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\README.md",
+      "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\rede_neural.html"
+    ],
+    "paper": [],
+    "image": [],
+    "video": []
+  },
+  "total_files": 14,
+  "total_words": 8478,
+  "needs_graph": false,
+  "warning": "Corpus is ~8,478 words - fits in a single context window. You may not need a graph.",
+  "unclassified_warning": null,
+  "skipped_sensitive": [],
+  "unclassified": [],
+  "walk_errors": [],
+  "ignored": [],
+  "pruned_noise_dirs": [
+    "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\graphify-out\\"
+  ],
+  "resolution_inputs": [],
+  "graphifyignore_patterns": 0,
+  "scan_root": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA"
+}

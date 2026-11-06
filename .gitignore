@@ -1,0 +1,15 @@
+# Scratch e Testes locais
+_testes/
+*.tmp
+*.log
+tmp_query*.sql
+check_views.sql
+test_render.html
+
+# Ambientes e OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node.js
+node_modules/

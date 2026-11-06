@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+    size: 215.9mm 279.4mm;
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    width: 215.9mm;
+    height: 279.4mm;
+    padding-top: 6.35mm;
+    padding-left: 6.35mm;
+    padding-right: 6.35mm;
+    padding-bottom: 11.9mm;
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+.report-container {
+    width: 203.2mm;
+    height: 261.15mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.title-band {
+    text-align: center;
+    padding-bottom: 1.5mm;
+    margin-bottom: 1mm;
+}
+.title-band h1 {
+    font-size: 15.5pt;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.3px;
+    margin-bottom: 1mm;
+}
+.title-band p {
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #222222;
+}
+.header-band {
+    border-bottom: 1.2px solid #000000;
+    padding-bottom: 1mm;
+    margin-bottom: 0.5mm;
+}
+.company-title {
+    font-size: 13pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2mm;
+    color: #000000;
+}
+.columns-header {
+    display: flex;
+    font-size: 10.5pt;
+    font-weight: bold;
+    color: #000000;
+}
+.col-h-deposito { width: 22mm; }
+.col-h-produto { width: 146mm; }
+.col-h-estoque { width: 35mm; text-align: right; }
+
+.details-container {
+    flex: 1;
+}
+.detail-item {
+    height: 13.23mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 0.75pt solid #b0b0b0;
+    padding: 0.5mm 0;
+}
+.line-1 {
+    display: flex;
+    font-size: 9.5pt;
+    color: #000000;
+    align-items: baseline;
+}
+.d-dep { width: 22mm; font-size: 9pt; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-cod { width: 18mm; text-align: right; padding-right: 3mm; font-weight: bold; }
+.d-desc { width: 128mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-est { width: 35mm; text-align: right; font-weight: bold; }
+
+.line-2 {
+    display: flex;
+    font-size: 10pt;
+    align-items: baseline;
+    margin-top: 0.4mm;
+}
+.f-label { font-weight: bold; font-size: 10pt; color: #000; }
+.f-val { margin-left: 1.5mm; margin-right: 5mm; font-size: 10pt; }
+.f-dif-val { margin-left: 1.5mm; font-size: 10pt; font-weight: bold; color: #b30000; }
+
+.summary-band {
+    margin-top: 2mm;
+    padding-top: 1.5mm;
+    border-top: 2px solid #000000;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+.sum-label {
+    font-size: 16pt;
+    font-weight: bold;
+    margin-right: 4mm;
+}
+.sum-val {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #b30000;
+}
+.page-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 8.5pt;
+    color: #444444;
+}
+.page-footer-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 8pt;
+    color: #777777;
+}
+</style>
+</head>
+<body>
+<div class="report-container">
+
+    <div class="header-band">
+        <div class="company-title">CASA X CONSTRUCAO DECORACAO E UTILIDADES DO LAR LTDA</div>
+        <div class="columns-header">
+            <div class="col-h-deposito">Depósito</div>
+            <div class="col-h-produto">Produto:</div>
+            <div class="col-h-estoque">Estoque Atual:</div>
+        </div>
+    </div>
+
+    <div class="details-container">
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">9433</div>
+                <div class="d-desc">TINTA VINIL ACRILICA INT 14L KIWI SARELLY</div>
+                <div class="d-est">1,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">9479</div>
+                <div class="d-desc">DISCO DIAMANTADO CONTINUO 22 X</div>
+                <div class="d-est">13,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">2564</div>
+                <div class="d-desc">TUBO ESGOTO LUPER 100X6</div>
+                <div class="d-est">96,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">9500</div>
+                <div class="d-desc">LAMPADA LED 15W G-LIGHT</div>
+                <div class="d-est">43,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">9503</div>
+                <div class="d-desc">LAMPADA LED 40W G-LIGHT</div>
+                <div class="d-est">7,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">1682</div>
+                <div class="d-desc">PENEIRA FEIJAO</div>
+                <div class="d-est">-2,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">1668</div>
+                <div class="d-desc">CAIBRO C/ 4,0 MT</div>
+                <div class="d-est">79,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">1679</div>
+                <div class="d-desc">CAIBRO C/ 3,5MT</div>
+                <div class="d-est">5,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">3680</div>
+                <div class="d-desc">ARCO DE SERRA FERTAK FIXO 12 HOBBY</div>
+                <div class="d-est">-1,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">3644</div>
+                <div class="d-desc">REJUNTE ACRILICO QUARTZOLIT 1K</div>
+                <div class="d-est">13,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">8630</div>
+                <div class="d-desc">VASO ACOPLADO LIBERTY BRANCO SANTA MARINA</div>
+                <div class="d-est">-17,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">571</div>
+                <div class="d-desc">IMPERMEABILIZANTE TECRYL D3 4KG BRANCO</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">7762</div>
+                <div class="d-desc">TINTA SPRAY TEKBOND PRETO BRILHANTE 350ML</div>
+                <div class="d-est">14,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">7723</div>
+                <div class="d-desc">REJUNTE ARGAMIL PRETO GRAFITE 1KG</div>
+                <div class="d-est">43,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">874</div>
+                <div class="d-desc">REGISTRO DOCOL 3/4 BASE PRESSAO</div>
+                <div class="d-est">3,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">2816</div>
+                <div class="d-desc">DISJUNTOR DIN UNIPOLAR 25AMP T</div>
+                <div class="d-est">152,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">CASA X</div>
+                <div class="d-cod">2818</div>
+                <div class="d-desc">DISJUNTOR DIN UNIPOLAR 32AMP TRAMONTINA</div>
+                <div class="d-est">2,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">1,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">1,00</span>
+            </div>
+        </div>
+   </div>
+    <div class="page-footer-left">ReportBuilder 21.02 — FireDAC (AUDITORIA_ENTRADA_SAIDA)</div>
+    <div class="page-footer">Página 8 de 12</div>
+</div>
+</body>
+</html>

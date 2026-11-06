@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+    size: 215.9mm 279.4mm;
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    width: 215.9mm;
+    height: 279.4mm;
+    padding-top: 6.35mm;
+    padding-left: 6.35mm;
+    padding-right: 6.35mm;
+    padding-bottom: 11.9mm;
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+.report-container {
+    width: 203.2mm;
+    height: 261.15mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.title-band {
+    text-align: center;
+    padding-bottom: 1mm;
+    margin-bottom: 1mm;
+}
+.title-band h1 {
+    font-size: 17pt;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.2px;
+}
+.header-band {
+    border-bottom: 1.2px solid #000000;
+    padding-bottom: 1mm;
+    margin-bottom: 1mm;
+}
+.company-title {
+    font-size: 13.5pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2mm;
+    color: #000000;
+}
+.columns-header {
+    display: flex;
+    font-size: 10.5pt;
+    font-weight: bold;
+    color: #000000;
+}
+.col-h-data { width: 24mm; }
+.col-h-pedido { width: 24mm; }
+.col-h-cliente { width: 85mm; }
+.col-h-valor { width: 32mm; text-align: right; }
+.col-h-tipo { width: 38mm; text-align: left; padding-left: 6mm; }
+
+.details-container {
+    flex: 1;
+}
+.detail-item {
+    height: 9.53mm;
+    display: flex;
+    align-items: center;
+    border-bottom: 0.5pt solid #d0d0d0;
+    font-size: 9.5pt;
+    color: #000000;
+}
+.d-data { width: 24mm; font-size: 9.5pt; }
+.d-pedido { width: 24mm; font-weight: bold; }
+.d-cliente { width: 85mm; display: flex; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.d-cdcli { width: 16mm; text-align: right; padding-right: 2.5mm; font-weight: 500; color: #444; }
+.d-nomecli { width: 68mm; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.d-valor { width: 32mm; text-align: right; font-weight: bold; }
+.d-tipo { width: 38mm; padding-left: 6mm; font-size: 9pt; font-weight: 500; color: #333; }
+
+.summary-band {
+    margin-top: 2mm;
+    padding-top: 1.5mm;
+    border-top: 2px solid #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.sum-group {
+    display: flex;
+    align-items: baseline;
+}
+.sum-label {
+    font-size: 15pt;
+    font-weight: bold;
+    margin-right: 3mm;
+}
+.sum-val {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #000000;
+}
+.page-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 8.5pt;
+    color: #444444;
+}
+.page-footer-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 8pt;
+    color: #777777;
+}
+</style>
+</head>
+<body>
+<div class="report-container">
+
+    <div class="header-band">
+        <div class="company-title">ZE GRANDE DE MIGUEL COUTO MATERIAL DE CONSTRU�AO LTDA</div>
+        <div class="columns-header">
+            <div class="col-h-data">Data:</div>
+            <div class="col-h-pedido">Nr. Pedido:</div>
+            <div class="col-h-cliente">Cliente:</div>
+            <div class="col-h-valor">Valor:</div>
+            <div class="col-h-tipo">Tipo:</div>
+        </div>
+    </div>
+
+    <div class="details-container">
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196640</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">47529</span>
+                <span class="d-nomecli">CAROLINA RODRIGUES | 47529</span>
+            </div>
+            <div class="d-valor">155,20</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196639</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">37546</span>
+                <span class="d-nomecli">FABIO DO BAR | 37546</span>
+            </div>
+            <div class="d-valor">1.428,88</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196638</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">37928</span>
+                <span class="d-nomecli">BETINHA | 37928</span>
+            </div>
+            <div class="d-valor">447,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196624</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">26683</span>
+                <span class="d-nomecli">GILBERTO PONTES | 26683</span>
+            </div>
+            <div class="d-valor">-71,00</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196613</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO</span>
+            </div>
+            <div class="d-valor">-9,99</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196606</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">17474</span>
+                <span class="d-nomecli">LUIZ LEPONO  | 17474</span>
+            </div>
+            <div class="d-valor">709,99</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196601</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50240</span>
+                <span class="d-nomecli">AUTO POSTO MS DE 3 CORACOES LTDA | 50240</span>
+            </div>
+            <div class="d-valor">857,80</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196599</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50328</span>
+                <span class="d-nomecli">MARCOS SILVA | 50328</span>
+            </div>
+            <div class="d-valor">-181,98</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196598</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50240</span>
+                <span class="d-nomecli">AUTO POSTO MS DE 3 CORACOES LTDA | 50240</span>
+            </div>
+            <div class="d-valor">2.730,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196597</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">46617</span>
+                <span class="d-nomecli">ATHLOS FIT ACADEMIA | 46617</span>
+            </div>
+            <div class="d-valor">18,97</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">22/10/2026</div>
+            <div class="d-pedido">196596</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50240</span>
+                <span class="d-nomecli">AUTO POSTO MS DE 3 CORACOES LTDA | 50240</span>
+            </div>
+            <div class="d-valor">5.000,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196587</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">37546</span>
+                <span class="d-nomecli">FABIO DO BAR | 37546</span>
+            </div>
+            <div class="d-valor">36,02</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196585</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">40253</span>
+                <span class="d-nomecli">GIVAGO FAISCA CAMILO | 40253</span>
+            </div>
+            <div class="d-valor">299,80</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196584</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">40253</span>
+                <span class="d-nomecli">GIVAGO FAISCA CAMILO | 40253</span>
+            </div>
+            <div class="d-valor">-502,88</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196563</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">-30,05</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196562</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">46617</span>
+                <span class="d-nomecli">ATHLOS FIT ACADEMIA | 46617</span>
+            </div>
+            <div class="d-valor">143,96</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196553</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">6318</span>
+                <span class="d-nomecli">PASTOR VAGNER ALELUIA | 6318</span>
+            </div>
+            <div class="d-valor">177,50</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196545</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">-39,99</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196538</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">37507</span>
+                <span class="d-nomecli">MIRIAM PAIVA | 37507</span>
+            </div>
+            <div class="d-valor">66,99</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196508</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">15607</span>
+                <span class="d-nomecli">DUAS IRM�S MAT DE CONSTRU��O | 15607</span>
+            </div>
+            <div class="d-valor">289,90</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196506</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">31197</span>
+                <span class="d-nomecli">ROSANGELA PEREIRA DA SILVA | 31197</span>
+            </div>
+            <div class="d-valor">139,50</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196505</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50354</span>
+                <span class="d-nomecli">NICOLLY MARIA DE JESUS  | 50354</span>
+            </div>
+            <div class="d-valor">1.500,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196504</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">50354</span>
+                <span class="d-nomecli">NICOLLY MARIA DE JESUS  | 50354</span>
+            </div>
+            <div class="d-valor">-1.500,00</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196498</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">37507</span>
+                <span class="d-nomecli">MIRIAM PAIVA | 37507</span>
+            </div>
+            <div class="d-valor">354,00</div>
+            <div class="d-tipo">PEDIDO</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="d-data">21/10/2026</div>
+            <div class="d-pedido">196488</div>
+            <div class="d-cliente">
+                <span class="d-cdcli">1</span>
+                <span class="d-nomecli">CLIENTE BALCAO | 1</span>
+            </div>
+            <div class="d-valor">-45,00</div>
+            <div class="d-tipo">TROCA</div>
+        </div>
+   </div>
+    <div class="summary-band">
+        <div class="sum-group">
+            <span class="sum-label">Qtd Pedidos:</span>
+            <span class="sum-val">124</span>
+        </div>
+        <div class="sum-group">
+            <span class="sum-label">Valor Total:</span>
+            <span class="sum-val">R$ 22.637,03</span>
+        </div>
+    </div>
+
+    <div class="page-footer-left">ReportBuilder 21.02 — FireDAC (NAO_EMITIDO_PEDIDOS)</div>
+    <div class="page-footer">Página 5 de 5</div>
+</div>
+</body>
+</html>

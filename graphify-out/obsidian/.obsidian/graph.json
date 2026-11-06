@@ -1,0 +1,39 @@
+{
+  "colorGroups": [
+    {
+      "query": "tag:#community/Tabelas_e_Modelagem_do_ERP_Automec",
+      "color": {
+        "a": 1,
+        "rgb": 5142951
+      }
+    },
+    {
+      "query": "tag:#community/Ciclo_de_Vida_e_Status_do_Pedido",
+      "color": {
+        "a": 1,
+        "rgb": 15896107
+      }
+    },
+    {
+      "query": "tag:#community/Base_de_Conhecimento_e_Rede_Neural",
+      "color": {
+        "a": 1,
+        "rgb": 14767961
+      }
+    },
+    {
+      "query": "tag:#community/Meios_de_Pagamento_e_Regra_do_Dinheiro",
+      "color": {
+        "a": 1,
+        "rgb": 7780274
+      }
+    },
+    {
+      "query": "tag:#community/Auditoria_Fiscal_e_Risco_DIMP",
+      "color": {
+        "a": 1,
+        "rgb": 5873999
+      }
+    }
+  ]
+}

@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIAUTOMEC — Arquitetura de Dados & Regras de Negócio</title>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #0f1626;
+      --surface-elevated: #151e33;
+      --surface-hover: #1b2742;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.15);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-faint: #64748b;
+      --accent: #38bdf8;
+      --accent-muted: rgba(56, 189, 248, 0.12);
+      
+      /* Semantic tags */
+      --color-table: #38bdf8;
+      --color-status: #a855f7;
+      --color-payment: #10b981;
+      --color-company: #f59e0b;
+      --color-view: #f43f5e;
+      --color-rule: #06b6d4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Canvas workspace background */
+    #network-container {
+      flex: 1;
+      height: 100%;
+      position: relative;
+      background-color: var(--bg);
+      background-image: radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    #network {
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
+    /* Top Application Bar */
+    .top-bar {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      right: 480px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 22, 38, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .top-bar.drawer-closed {
+      right: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-right: 12px;
+      border-right: 1px solid var(--border);
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .brand-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* Search Box */
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex: 0 0 220px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(8, 12, 20, 0.6);
+      border: 1px solid var(--border);
+      padding: 6px 28px 6px 30px;
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      background: rgba(8, 12, 20, 0.95);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 9px;
+      color: var(--text-faint);
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+
+    .search-kbd {
+      position: absolute;
+      right: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 1px 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-faint);
+      pointer-events: none;
+    }
+
+    /* Jump Selector */
+    .jump-select {
+      background: rgba(8, 12, 20, 0.6);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-family: inherit;
+      padding: 6px 10px;
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .jump-select:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .jump-select option {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    /* Filter Tabs (Segmented control) */
+    .filter-tabs {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(8, 12, 20, 0.6);
+      padding: 3px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      margin-left: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 11.5px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      background: var(--surface-elevated);
+      color: #fff;
+      font-weight: 600;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .tab-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* Floating Canvas Toolbar (Dock) */
+    .canvas-dock {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      background: rgba(15, 22, 38, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .dock-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 11px;
+      border-radius: 5px;
+      font-size: 11.5px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .dock-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+    }
+
+    .dock-btn.active {
+      color: var(--accent);
+    }
+
+    .dock-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+      margin: 0 2px;
+    }
+
+    /* Status Pill Legend */
+    .graph-stats {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+      padding: 0 10px;
+    }
+
+    /* Detail Drawer (Inspector Sidebar) */
+    #sidebar {
+      width: 470px;
+      height: 100%;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 20;
+      position: relative;
+    }
+
+    #sidebar.hidden {
+      transform: translateX(100%);
+      position: absolute;
+      right: 0;
+    }
+
+    .drawer-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      background: var(--surface);
+    }
+
+    .drawer-category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .drawer-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+    }
+
+    .drawer-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .drawer-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 22px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .drawer-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .drawer-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .drawer-body::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-faint);
+      margin: 20px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
+    }
+
+    /* Structured Schema Table */
+    .schema-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .schema-table th, .schema-table td {
+      padding: 7px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .schema-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .schema-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .schema-table td b {
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 11.5px;
+    }
+
+    .type-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+      padding: 1px 5px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    /* Code Block */
+    .code-container {
+      position: relative;
+      margin: 10px 0;
+    }
+
+    .code-block {
+      background: #080c14;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: #93c5fd;
+      line-height: 1.5;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .copy-code-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .copy-code-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    /* Callout Card */
+    .callout {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 3px solid var(--border-strong);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 12px 0;
+      font-size: 12.5px;
+    }
+
+    .callout.alert-warning {
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.07);
+    }
+
+    .callout.alert-danger {
+      border-left-color: #f43f5e;
+      background: rgba(244, 63, 94, 0.07);
+    }
+
+    .callout.alert-info {
+      border-left-color: var(--accent);
+      background: rgba(56, 189, 248, 0.07);
+    }
+
+    .callout-title {
+      font-weight: 600;
+      color: #fff;
+      font-size: 12px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .relation-link {
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 500;
+      border-bottom: 1px dotted var(--accent);
+    }
+    .relation-link:hover {
+      border-bottom-style: solid;
+    }
+
+    .pill-inline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #e2e8f0;
+    }
+
+    /* SVG Icon utility */
+    .ui-icon {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="network-container">
+    <!-- Top Bar -->
+    <header class="top-bar" id="top-bar">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg class="ui-icon" style="width:16px;height:16px" viewBox="0 0 24 24">
+            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+          </svg>
+        </div>
+        <div class="brand-title">
+          MIAUTOMEC
+          <span class="brand-badge">Firebird 5.0</span>
+        </div>
+      </div>
+
+      <div class="search-wrapper">
+        <svg class="search-icon ui-icon" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="search" class="search-input" placeholder="Buscar tabela, regra, campo..." oninput="handleSearch(this.value)">
+        <span class="search-kbd">/</span>
+      </div>
+
+      <select class="jump-select" onchange="jumpToNode(this.value)">
+        <option value="">Ir para entidade...</option>
+        <optgroup label="Tabelas">
+          <option value="SAIDAESTOQUE">SAIDAESTOQUE (Pedidos Mestre)</option>
+          <option value="CTARECEBER_PROV">CTARECEBER_PROV (Parcelas)</option>
+          <option value="RECEBTO">RECEBTO (Formas de Pagto)</option>
+          <option value="CONFIGURACAO">CONFIGURACAO (Filiais)</option>
+          <option value="NOTAFISCAL">NOTAFISCAL (Documentos)</option>
+        </optgroup>
+        <optgroup label="Ciclo de Vida & Status">
+          <option value="STATUS_0">Status 0 (Pedido Aberto)</option>
+          <option value="STATUS_1">Status 1 (Pedido Sem Nota)</option>
+          <option value="STATUS_3">Status 3 (Emitido Fiscal)</option>
+          <option value="STATUS_40">Status 40 (Troca / Devolução)</option>
+          <option value="STATUS_2">Status 2 / 42 (Cancelado)</option>
+        </optgroup>
+        <optgroup label="Auditoria & Regras">
+          <option value="VIEW_NAO_EMITIDO">VIEW: NAO_EMITIDO_PEDIDOS</option>
+          <option value="REGRA_DIF_TROCA">Regra: Troca vs Pedido</option>
+          <option value="REGRA_EMISSAO">Regra: Filtro NRDOC IS NULL</option>
+          <option value="PAG_DINHEIRO">Filtro: LIKE %DINHEIRO%</option>
+        </optgroup>
+      </select>
+
+      <div class="filter-tabs">
+        <button class="tab-btn active" onclick="filterCategory('all', this)">
+          Todas
+        </button>
+        <button class="tab-btn" onclick="filterCategory('tabela', this)">
+          <span class="tab-indicator" style="color: var(--color-table)"></span>
+          Tabelas
+        </button>
+        <button class="tab-btn" onclick="filterCategory('status', this)">
+          <span class="tab-indicator" style="color: var(--color-status)"></span>
+          Status
+        </button>
+        <button class="tab-btn" onclick="filterCategory('pagamento', this)">
+          <span class="tab-indicator" style="color: var(--color-payment)"></span>
+          Pagamentos
+        </button>
+        <button class="tab-btn" onclick="filterCategory('empresa', this)">
+          <span class="tab-indicator" style="color: var(--color-company)"></span>
+          Filiais
+        </button>
+        <button class="tab-btn" onclick="filterCategory('view_regra', this)">
+          <span class="tab-indicator" style="color: var(--color-view)"></span>
+          Regras & Views
+        </button>
+      </div>
+    </header>
+
+    <!-- Floating Canvas Toolbar -->
+    <nav class="canvas-dock">
+      <button class="dock-btn" onclick="fitNetwork()" title="Enquadrar todo o diagrama">
+        <svg class="ui-icon" viewBox="0 0 24 24">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+        Enquadrar
+      </button>
+
+      <button class="dock-btn" onclick="resetPhysics()" title="Recalcular e organizar posições">
+        <svg class="ui-icon" viewBox="0 0 24 24">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <polyline points="1 20 1 14 7 14"></polyline>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        </svg>
+        Organizar
+      </button>
+
+      <button class="dock-btn" id="physics-btn" onclick="togglePhysics()" title="Pausar / ativar simulação física">
+        <svg class="ui-icon" id="physics-icon" viewBox="0 0 24 24">
+          <rect x="6" y="4" width="4" height="16"></rect>
+          <rect x="14" y="4" width="4" height="16"></rect>
+        </svg>
+        <span id="physics-label">Física</span>
+      </button>
+
+      <div class="dock-divider"></div>
+
+      <button class="dock-btn" onclick="zoomIn()" title="Aumentar Zoom">
+        <svg class="ui-icon" viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+
+      <button class="dock-btn" onclick="zoomOut()" title="Diminuir Zoom">
+        <svg class="ui-icon" viewBox="0 0 24 24">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+
+      <div class="dock-divider"></div>
+      <span class="graph-stats" id="stats-counter">18 nós • 21 links</span>
+    </nav>
+
+    <!-- Canvas -->
+    <div id="network"></div>
+  </div>
+
+  <!-- Detail Inspector Drawer -->
+  <aside id="sidebar">
+    <div class="drawer-header">
+      <div>
+        <div id="side-badge" class="drawer-category-tag">TABELA MESTRE</div>
+        <h2 id="side-title" class="drawer-title">SAIDAESTOQUE</h2>
+        <div id="side-sub" class="drawer-subtitle">NRPEDIDO, IDEMPRESA</div>
+      </div>
+      <div class="drawer-actions">
+        <button class="icon-btn" onclick="copyEntityName()" title="Copiar identificador">
+          <svg class="ui-icon" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+        <button class="icon-btn" onclick="closeSidebar()" title="Fechar painel (Esc)">
+          <svg class="ui-icon" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="side-body" class="drawer-body">
+      <!-- Injected dynamic documentation -->
+    </div>
+  </aside>
+
+  <script>
+    // Refined semantic palette (cards with dark matte fill and precise accent borders)
+    const categoryTheme = {
+      tabela: {
+        accent: '#38bdf8',
+        bg: '#0c1322',
+        border: 'rgba(56, 189, 248, 0.45)',
+        badgeBg: 'rgba(56, 189, 248, 0.12)',
+        label: 'TABELA RELACIONAL'
+      },
+      status: {
+        accent: '#a855f7',
+        bg: '#140f26',
+        border: 'rgba(168, 85, 247, 0.45)',
+        badgeBg: 'rgba(168, 85, 247, 0.12)',
+        label: 'CICLO DO PEDIDO'
+      },
+      pagamento: {
+        accent: '#10b981',
+        bg: '#0b1b17',
+        border: 'rgba(16, 185, 129, 0.45)',
+        badgeBg: 'rgba(16, 185, 129, 0.12)',
+        label: 'FORMA DE PAGAMENTO'
+      },
+      empresa: {
+        accent: '#f59e0b',
+        bg: '#1c1509',
+        border: 'rgba(245, 158, 11, 0.45)',
+        badgeBg: 'rgba(245, 158, 11, 0.12)',
+        label: 'EMPRESA / FILIAL'
+      },
+      view: {
+        accent: '#f43f5e',
+        bg: '#1f0d14',
+        border: 'rgba(244, 63, 94, 0.45)',
+        badgeBg: 'rgba(244, 63, 94, 0.12)',
+        label: 'VIEW SQL'
+      },
+      regra: {
+        accent: '#06b6d4',
+        bg: '#0a171f',
+        border: 'rgba(6, 182, 212, 0.45)',
+        badgeBg: 'rgba(6, 182, 212, 0.12)',
+        label: 'REGRA DE NEGÓCIO'
+      }
+    };
+
+    // Clean, structured coordinates modeled after real architectural schema diagrams
+    const nodesRaw = [
+      // CORE HUB
+      { 
+        id: 'SAIDAESTOQUE', 
+        name: 'SAIDAESTOQUE',
+        sub: 'Hub Central • Pedidos & Saídas', 
+        group: 'tabela', 
+        x: 0, 
+        y: 0,
+        isHub: true
+      },
+
+      // FINANCIAL FLOW (EAST)
+      { 
+        id: 'CTARECEBER_PROV', 
+        name: 'CTARECEBER_PROV', 
+        sub: 'Parcelas & Caixa (NRPEDIDO)', 
+        group: 'tabela', 
+        x: 270, 
+        y: -90 
+      },
+      { 
+        id: 'RECEBTO', 
+        name: 'RECEBTO', 
+        sub: 'Dicionário de Meios (CDRECEBTO)', 
+        group: 'tabela', 
+        x: 520, 
+        y: -90 
+      },
+
+      // PAYMENT METHODS (FAR EAST CLUSTER)
+      { 
+        id: 'PAG_DINHEIRO', 
+        name: 'DINHEIRO', 
+        sub: 'LIKE %DINHEIRO% (Excluso da View)', 
+        group: 'pagamento', 
+        x: 770, 
+        y: -190 
+      },
+      { 
+        id: 'PAG_PIX', 
+        name: 'PIX (SEFAZ 17)', 
+        sub: 'Forma 40 • Risco DIMP Alto', 
+        group: 'pagamento', 
+        x: 770, 
+        y: -90 
+      },
+      { 
+        id: 'PAG_CARTAO', 
+        name: 'CARTÕES (03 / 04)', 
+        sub: 'Débito / Crédito • Risco DIMP', 
+        group: 'pagamento', 
+        x: 770, 
+        y: 10 
+      },
+      { 
+        id: 'PAG_VALE', 
+        name: 'VALE / CRÉDITO', 
+        sub: 'Retenção Comercial / Devolução', 
+        group: 'pagamento', 
+        x: 770, 
+        y: 110 
+      },
+
+      // FISCAL PIPELINE (NORTH WEST)
+      { 
+        id: 'NOTAFISCAL', 
+        name: 'NOTAFISCAL', 
+        sub: 'Documentos Autorizados (NRDOC)', 
+        group: 'tabela', 
+        x: -280, 
+        y: -110 
+      },
+      { 
+        id: 'REGRA_EMISSAO', 
+        name: 'REGRA: EMISSÃO FISCAL', 
+        sub: 'Condição: NRDOC IS NULL', 
+        group: 'regra', 
+        x: -520, 
+        y: -110 
+      },
+
+      // AUDIT VIEW (NORTH PINNACLE)
+      { 
+        id: 'VIEW_NAO_EMITIDO', 
+        name: 'VIEW: NAO_EMITIDO_PEDIDOS', 
+        sub: 'Auditoria SEFAZ • 1 Linha por Pedido', 
+        group: 'view', 
+        x: 0, 
+        y: -240 
+      },
+
+      // ORDER LIFECYCLE / STATUS (SOUTH ARC)
+      { 
+        id: 'STATUS_0', 
+        name: 'STATUS 0', 
+        sub: 'Pedido em Aberto (Digitação)', 
+        group: 'status', 
+        x: 100, 
+        y: 180 
+      },
+      { 
+        id: 'STATUS_1', 
+        name: 'STATUS 1', 
+        sub: 'Pedido (Finalizado Sem Nota)', 
+        group: 'status', 
+        x: 270, 
+        y: 220 
+      },
+      { 
+        id: 'STATUS_3', 
+        name: 'STATUS 3', 
+        sub: 'Emitido Fiscal (Cupom / NF)', 
+        group: 'status', 
+        x: 440, 
+        y: 220 
+      },
+      { 
+        id: 'STATUS_40', 
+        name: 'STATUS 40', 
+        sub: 'Troca / Devolução (VLTOTAL < 0)', 
+        group: 'status', 
+        x: 610, 
+        y: 200 
+      },
+      { 
+        id: 'STATUS_2', 
+        name: 'STATUS 2 / 42', 
+        sub: 'Cancelado / Estornado', 
+        group: 'status', 
+        x: 760, 
+        y: 210 
+      },
+      { 
+        id: 'REGRA_DIF_TROCA', 
+        name: 'REGRA: TROCA VS PEDIDO', 
+        sub: 'Sinal Negativo e Devolução Vale', 
+        group: 'regra', 
+        x: 500, 
+        y: 310 
+      },
+
+      // COMPANIES (SOUTH WEST)
+      { 
+        id: 'CONFIGURACAO', 
+        name: 'CONFIGURACAO', 
+        sub: 'Empresas & Filiais (IDEMPRESA)', 
+        group: 'tabela', 
+        x: -280, 
+        y: 120 
+      },
+      { 
+        id: 'EMP_3', 
+        name: 'FILIAL 3: ZÉ GRANDE', 
+        sub: 'Miguel Couto (Matriz Comercial)', 
+        group: 'empresa', 
+        x: -510, 
+        y: 80 
+      },
+      { 
+        id: 'EMP_4', 
+        name: 'FILIAL 4: CASA X', 
+        sub: 'Decoração & Utilidades', 
+        group: 'empresa', 
+        x: -510, 
+        y: 180 
+      }
+    ];
+
+    // Structural edges with clean muted styling
+    const edgesRaw = [
+      // Core joins
+      { from: 'SAIDAESTOQUE', to: 'CTARECEBER_PROV', labelHint: 'NRPEDIDO' },
+      { from: 'CTARECEBER_PROV', to: 'RECEBTO', labelHint: 'CODPAGTO = CDRECEBTO' },
+      { from: 'SAIDAESTOQUE', to: 'CONFIGURACAO', labelHint: 'IDEMPRESA' },
+      { from: 'SAIDAESTOQUE', to: 'NOTAFISCAL', labelHint: 'NRPEDIDO + IDEMPRESA' },
+
+      // Payment branches
+      { from: 'RECEBTO', to: 'PAG_DINHEIRO' },
+      { from: 'RECEBTO', to: 'PAG_PIX' },
+      { from: 'RECEBTO', to: 'PAG_CARTAO' },
+      { from: 'RECEBTO', to: 'PAG_VALE' },
+
+      // Status branches
+      { from: 'SAIDAESTOQUE', to: 'STATUS_0' },
+      { from: 'SAIDAESTOQUE', to: 'STATUS_1' },
+      { from: 'SAIDAESTOQUE', to: 'STATUS_3' },
+      { from: 'SAIDAESTOQUE', to: 'STATUS_40' },
+      { from: 'SAIDAESTOQUE', to: 'STATUS_2' },
+
+      // Companies
+      { from: 'CONFIGURACAO', to: 'EMP_3' },
+      { from: 'CONFIGURACAO', to: 'EMP_4' },
+
+      // View dependencies (dashed)
+      { from: 'VIEW_NAO_EMITIDO', to: 'SAIDAESTOQUE', dashes: true },
+      { from: 'VIEW_NAO_EMITIDO', to: 'CTARECEBER_PROV', dashes: true },
+      { from: 'VIEW_NAO_EMITIDO', to: 'NOTAFISCAL', dashes: true },
+
+      // Rules dependencies
+      { from: 'REGRA_DIF_TROCA', to: 'STATUS_40', dashes: true },
+      { from: 'REGRA_DIF_TROCA', to: 'STATUS_1', dashes: true },
+      { from: 'REGRA_EMISSAO', to: 'NOTAFISCAL', dashes: true },
+      { from: 'REGRA_EMISSAO', to: 'STATUS_3', dashes: true }
+    ];
+
+    // Documentation database with pristine technical formatting
+    const docs = {
+      SAIDAESTOQUE: {
+        group: 'tabela',
+        title: 'SAIDAESTOQUE',
+        subtitle: 'Chave Primária: NRPEDIDO, IDEMPRESA',
+        content: `
+          <p>Tabela central de operações comerciais do ERP Automec. Registra cada pedido de venda, orçamentos finalizados, saídas e devoluções/trocas de mercadorias.</p>
+          
+          <div class="section-title">Chaves & Relações</div>
+          <p>Chave primária composta por <span class="pill-inline">NRPEDIDO</span> e <span class="pill-inline">IDEMPRESA</span>. Conecta-se diretamente com <a class="relation-link" onclick="jumpToNode('CTARECEBER_PROV')">CTARECEBER_PROV</a> para o financeiro e <a class="relation-link" onclick="jumpToNode('CONFIGURACAO')">CONFIGURACAO</a> para filiais.</p>
+
+          <div class="section-title">Estrutura de Colunas Relevantes</div>
+          <table class="schema-table">
+            <thead><tr><th>Coluna</th><th>Tipo</th><th>Descrição</th></tr></thead>
+            <tbody>
+              <tr><td><b>NRPEDIDO</b></td><td><span class="type-tag">INTEGER</span></td><td>Número sequencial do pedido na filial</td></tr>
+              <tr><td><b>IDEMPRESA</b></td><td><span class="type-tag">INTEGER</span></td><td>Filial emissora (1=JPR, 2=ZG, 3=Zé Grande, 4=Casa X)</td></tr>
+              <tr><td><b>DTSAIDA</b></td><td><span class="type-tag">TIMESTAMP</span></td><td>Data da baixa / saída do estoque</td></tr>
+              <tr><td><b>HORAPED</b></td><td><span class="type-tag">TIME</span></td><td>Horário de gravação do pedido</td></tr>
+              <tr><td><b>STATUS</b></td><td><span class="type-tag">INTEGER</span></td><td>Estado: 0=Aberto, 1=Pedido, 3=Emitido, 40=Troca, 2/42=Cancelado</td></tr>
+              <tr><td><b>VLTOTAL</b></td><td><span class="type-tag">DOUBLE</span></td><td>Valor final (+ para vendas, - para trocas)</td></tr>
+              <tr><td><b>NUMCUPOM</b></td><td><span class="type-tag">INTEGER</span></td><td>-1 quando gerou cupom fiscal, NULL se não fiscal</td></tr>
+              <tr><td><b>CHAVE_NFCE</b></td><td><span class="type-tag">VARCHAR(60)</span></td><td>Chave da NFC-e (44 dígitos)</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout alert-info">
+            <div class="callout-title">Regra de Totalização</div>
+            Para relatórios financeiros, vendas normais possuem <code>VLTOTAL > 0</code>. Em trocas e devoluções (Status 40), o <code>VLTOTAL</code> é gravado negativo.
+          </div>
+        `
+      },
+      CTARECEBER_PROV: {
+        group: 'tabela',
+        title: 'CTARECEBER_PROV',
+        subtitle: 'Chave Primária: CONTROLE (Sequencial)',
+        content: `
+          <p>Registra o desdobramento financeiro provisório de cada pedido no momento da finalização no caixa (parcelas em dinheiro, cartões, PIX ou vales).</p>
+
+          <div class="section-title">Relacionamento</div>
+          <p>Vincula-se a <a class="relation-link" onclick="jumpToNode('SAIDAESTOQUE')">SAIDAESTOQUE</a> via <span class="pill-inline">NRPEDIDO + IDEMPRESA</span> e a <a class="relation-link" onclick="jumpToNode('RECEBTO')">RECEBTO</a> via <span class="pill-inline">CODPAGTO = CDRECEBTO</span>.</p>
+
+          <div class="section-title">Colunas Principais</div>
+          <table class="schema-table">
+            <thead><tr><th>Coluna</th><th>Tipo</th><th>Descrição</th></tr></thead>
+            <tbody>
+              <tr><td><b>CONTROLE</b></td><td><span class="type-tag">INTEGER</span></td><td>Identificador único da parcela financeira</td></tr>
+              <tr><td><b>NRPEDIDO</b></td><td><span class="type-tag">INTEGER</span></td><td>Número do pedido de origem</td></tr>
+              <tr><td><b>PARCELA</b></td><td><span class="type-tag">INTEGER</span></td><td>Número sequencial da parcela (ex: 1, 2, 3...)</td></tr>
+              <tr><td><b>VALOR</b></td><td><span class="type-tag">DOUBLE</span></td><td>Valor monetário da parcela</td></tr>
+              <tr><td><b>CODPAGTO</b></td><td><span class="type-tag">INTEGER</span></td><td>Código da forma de pagamento (RECEBTO)</td></tr>
+              <tr><td><b>DTVENC</b></td><td><span class="type-tag">TIMESTAMP</span></td><td>Vencimento nominal da parcela</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout alert-warning">
+            <div class="callout-title">Cuidados com Agrupamento</div>
+            Vendas parceladas (ex: Cartão 6x) geram 6 registros nesta tabela. Ao realizar JOIN direto, agrupe por <code>NRPEDIDO</code> com <code>SUM(VALOR)</code> e <code>COUNT(CONTROLE)</code> para evitar duplicação de pedidos.
+          </div>
+        `
+      },
+      RECEBTO: {
+        group: 'tabela',
+        title: 'RECEBTO',
+        subtitle: 'Chave Primária: CDRECEBTO',
+        content: `
+          <p>Dicionário mestre com todas as modalidades de pagamento aceitas pelo sistema.</p>
+
+          <div class="section-title">Auditoria de Dinheiro vs Meios Eletrônicos</div>
+          <p>Na base de dados, dinheiro não se restringe ao código 1. Existem cadastros como <code>1 DINHEIRO</code> e <code>DEVOLUÇÃO DINHEIRO</code> (código 10). Para filtragem segura de vendas em espécie:</p>
+
+          <div class="code-container">
+            <button class="copy-code-btn" onclick="copySnippet(this, 'UPPER(COALESCE(R.RECEBTO, \'\')) LIKE \'%DINHEIRO%\'')">COPIAR</button>
+            <div class="code-block">UPPER(COALESCE(R.RECEBTO, '')) LIKE '%DINHEIRO%'</div>
+          </div>
+
+          <div class="section-title">Cruzamento Fiscal (DIMP)</div>
+          <p>Meios como PIX e Cartões são monitorados pela SEFAZ através da DIMP. Pedidos nestes meios sem documento fiscal geram passivo tributário.</p>
+        `
+      },
+      CONFIGURACAO: {
+        group: 'tabela',
+        title: 'CONFIGURACAO',
+        subtitle: 'Chave Primária: IDEMPRESA',
+        content: `
+          <p>Cadastro das filiais ativas no banco de dados <code>MIAUTOMEC.FDB</code>.</p>
+
+          <div class="section-title">Filiais Cadastradas</div>
+          <table class="schema-table">
+            <thead><tr><th>ID</th><th>Razão Social</th><th>Nome Comercial</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td>JPR DE MATERIAL DE CONSTRUCAO LTDA</td><td>JPR Material</td></tr>
+              <tr><td><b>2</b></td><td>ZG COMERCIO DE MATERIAL DE CONSTRUCAO LTDA</td><td>ZG Comércio</td></tr>
+              <tr><td><b>3</b></td><td>ZE GRANDE DE MIGUEL COUTO MAT. CONSTRUCAO</td><td>Zé Grande Matriz</td></tr>
+              <tr><td><b>4</b></td><td>CASA X CONSTRUCAO DECORACAO UTILIDADES</td><td>Casa X Utilidades</td></tr>
+            </tbody>
+          </table>
+        `
+      },
+      NOTAFISCAL: {
+        group: 'tabela',
+        title: 'NOTAFISCAL',
+        subtitle: 'Chave Primária: IDEMPRESA, NRDOC, SERIE',
+        content: `
+          <p>Tabela de documentos fiscais autorizados, cancelados e inutilizados perante a SEFAZ (NF-e modelo 55 e NFC-e modelo 65).</p>
+
+          <div class="section-title">Critério para Pedidos Não Emitidos</div>
+          <p>Para determinar se um pedido de venda não possui nota fiscal ativa, utiliza-se a seguinte cláusula estrita:</p>
+
+          <div class="code-container">
+            <button class="copy-code-btn" onclick="copySnippet(this, 'LEFT JOIN NOTAFISCAL NF ON (NF.NRPEDIDO = SE.NRPEDIDO) AND (NF.IDEMPRESA = SE.IDEMPRESA) AND (COALESCE(NF.NFE_CANCELADA, 0) = 0) AND (COALESCE(NF.STATUS, 0) <> 9)\\nWHERE NF.NRDOC IS NULL')">COPIAR</button>
+            <div class="code-block">LEFT JOIN NOTAFISCAL NF 
+    ON (NF.NRPEDIDO = SE.NRPEDIDO) 
+   AND (NF.IDEMPRESA = SE.IDEMPRESA)
+   AND (COALESCE(NF.NFE_CANCELADA, 0) = 0)
+   AND (COALESCE(NF.STATUS, 0) <> 9)
+WHERE NF.NRDOC IS NULL</div>
+          </div>
+        `
+      },
+      STATUS_0: {
+        group: 'status',
+        title: 'STATUS 0 — PEDIDO EM ABERTO',
+        subtitle: 'Ciclo Inicial de Digitação',
+        content: `
+          <p>Pedido registrado no balcão de vendas ou por pré-venda, mas que <b>ainda não passou pelo caixa</b> para faturamento.</p>
+          <div class="callout alert-info">
+            <div class="callout-title">Impacto Fiscal</div>
+            Não possui cupom nem movimentação fiscal. Está pendente de finalização ou desistência do cliente.
+          </div>
+        `
+      },
+      STATUS_1: {
+        group: 'status',
+        title: 'STATUS 1 — PEDIDO (VENDA SEM NOTA)',
+        subtitle: 'Faturamento Normal no Caixa',
+        content: `
+          <p>Venda regular finalizada no caixa <b>sem emissão de documento fiscal</b>.</p>
+          <p>Se o recebimento ocorreu em dinheiro, é comum no comércio varejista. Contudo, se foi finalizado via <b>PIX ou Cartão</b>, constitui divergência perante o cruzamento da DIMP/SEFAZ.</p>
+        `
+      },
+      STATUS_3: {
+        group: 'status',
+        title: 'STATUS 3 — EMITIDO FISCAL',
+        subtitle: 'Documento Fiscal Autorizado',
+        content: `
+          <p>Venda faturada com autorização de documento fiscal (Cupom Fiscal, NFC-e ou NF-e).</p>
+          <p>Possui <code>NUMCUPOM = -1</code> ou registro correspondente em <a class="relation-link" onclick="jumpToNode('NOTAFISCAL')">NOTAFISCAL</a> com autorização da SEFAZ.</p>
+        `
+      },
+      STATUS_40: {
+        group: 'status',
+        title: 'STATUS 40 — TROCA / DEVOLUÇÃO',
+        subtitle: 'Movimentação Negativa de Estoque',
+        content: `
+          <p>Registra retorno de mercadorias para o estoque e emissão de crédito para o cliente.</p>
+          <div class="section-title">Indicadores Técnicos</div>
+          <ul>
+            <li><code>VLTOTAL</code> é <b>negativo</b>.</li>
+            <li>Parcelas financeiras em <a class="relation-link" onclick="jumpToNode('CTARECEBER_PROV')">CTARECEBER_PROV</a> possuem valor negativo (estorno/crédito).</li>
+            <li>Formas de pagamento comuns: <code>DEVOLUÇÃO VALE</code> e <code>DEVOLUÇÃO DINHEIRO</code>.</li>
+          </ul>
+        `
+      },
+      STATUS_2: {
+        group: 'status',
+        title: 'STATUS 2 / 42 — CANCELADO',
+        subtitle: 'Operação Invalidadas',
+        content: `
+          <p>Pedidos que foram cancelados pela gerência ou estornados no caixa. Devem ser sempre desconsiderados através de <code>SE.STATUS NOT IN (2, 42)</code>.</p>
+        `
+      },
+      VIEW_NAO_EMITIDO: {
+        group: 'view',
+        title: 'VIEW: NAO_EMITIDO_PEDIDOS',
+        subtitle: 'Auditoria de Pedidos Sem Nota (Agrupada por Pedido)',
+        content: `
+          <p>View SQL consolidada e comitada no banco de dados. Agrupa <b>1 linha por pedido</b> utilizando <code>GROUP BY SE.NRPEDIDO</code>.</p>
+          
+          <div class="section-title">Regras Aplicadas</div>
+          <ul>
+            <li><b>1 Linha por Pedido:</b> Elimina duplicações em pedidos de cartão parcelado (ex: Pedido 2715 em 6x).</li>
+            <li><b>Exclusão de Dinheiro:</b> <code>UPPER(R.RECEBTO) NOT LIKE '%DINHEIRO%' AND CP.CODPAGTO NOT IN (1, 10)</code>.</li>
+            <li><b>Exclusão de Cancelados:</b> <code>SE.STATUS NOT IN (2, 42)</code>.</li>
+            <li><b>Filtro Estrito:</b> <code>NF.NRDOC IS NULL</code> (notas canceladas são tratadas sem ocultar o pedido).</li>
+          </ul>
+
+          <div class="section-title">Colunas Calculadas</div>
+          <table class="schema-table">
+            <thead><tr><th>Coluna</th><th>Tipo</th><th>Definição</th></tr></thead>
+            <tbody>
+              <tr><td><b>TIPO_OPERACAO</b></td><td><span class="type-tag">VARCHAR(16)</span></td><td>'PEDIDO', 'TROCA' ou 'PEDIDO EM ABERTO'</td></tr>
+              <tr><td><b>PARCELA</b></td><td><span class="type-tag">INTEGER</span></td><td>COUNT(CP.CONTROLE) — Total de parcelas</td></tr>
+              <tr><td><b>VALOR_PARCELA</b></td><td><span class="type-tag">DOUBLE</span></td><td>SUM(CP.VALOR) — Valor total das parcelas</td></tr>
+              <tr><td><b>FORMA_PAGTO</b></td><td><span class="type-tag">VARCHAR(255)</span></td><td>LIST(DISTINCT TRIM(R.RECEBTO), ', ')</td></tr>
+            </tbody>
+          </table>
+        `
+      },
+      REGRA_DIF_TROCA: {
+        group: 'regra',
+        title: 'REGRA: TROCA VS PEDIDO',
+        subtitle: 'Diferenciação no Banco de Dados',
+        content: `
+          <p>Como o banco Automec separa um pedido de venda de uma devolução:</p>
+          <table class="schema-table">
+            <thead><tr><th>Critério</th><th>Venda Regular</th><th>Troca / Devolução</th></tr></thead>
+            <tbody>
+              <tr><td><b>STATUS</b></td><td><code>1</code> ou <code>3</code></td><td><code>40</code></td></tr>
+              <tr><td><b>Sinal VLTOTAL</b></td><td>Positivo (+)</td><td>Negativo (-)</td></tr>
+              <tr><td><b>Meio de Quitação</b></td><td>Dinheiro, Cartão, PIX</td><td>Devolução Vale, Devolução Dinheiro</td></tr>
+              <tr><td><b>Estoque</b></td><td>Saída de material</td><td>Retorno físico ao estoque</td></tr>
+            </tbody>
+          </table>
+        `
+      },
+      REGRA_EMISSAO: {
+        group: 'regra',
+        title: 'REGRA: EMISSÃO FISCAL E NOTAS CANCELADAS',
+        subtitle: 'Tratamento de Exceções',
+        content: `
+          <p>Pedidos que tiveram uma nota fiscal emitida e posteriormente cancelada (como o Pedido 3416) retornam à condição de <b>não emitidos</b>.</p>
+          <div class="callout alert-warning">
+            <div class="callout-title">Remoção de NUMCUPOM e CHAVE_NFCE do WHERE</div>
+            O banco mantém resquícios de <code>NUMCUPOM = -1</code> mesmo após o cancelamento do documento na tabela <code>NOTAFISCAL</code>. Portanto, a regra segura considera exclusivamente <code>NF.NRDOC IS NULL</code> após LEFT JOIN com notas ativas.
+          </div>
+        `
+      },
+      PAG_DINHEIRO: {
+        group: 'pagamento',
+        title: 'MEIO DE PAGAMENTO: DINHEIRO',
+        subtitle: 'Filtro LIKE %DINHEIRO%',
+        content: `
+          <p>Identifica vendas quitadas em moeda corrente. Na auditoria fiscal da View <code>NAO_EMITIDO_PEDIDOS</code>, estas vendas são deliberadamente <b>excluídas</b> para focar no passivo fiscal de meios rastreáveis (PIX e Cartões).</p>
+        `
+      },
+      PAG_PIX: {
+        group: 'pagamento',
+        title: 'MEIO DE PAGAMENTO: PIX',
+        subtitle: 'Código 40 • Meio SEFAZ 17',
+        content: `
+          <p>Recebimentos instantâneos via chave ou QR Code. Os bancos enviam mensalmente a movimentação DIMP à Receita Estadual. Pedidos finalizados em PIX sem documento fiscal são passíveis de autuação direta.</p>
+        `
+      },
+      PAG_CARTAO: {
+        group: 'pagamento',
+        title: 'MEIO DE PAGAMENTO: CARTÕES',
+        subtitle: 'Débito (04) & Crédito (03)',
+        content: `
+          <p>Transações via POS/TEF. As operadoras de maquininhas transmitem as operações para a SEFAZ. Pedidos em status 1 pagos em cartão configuram divergência fiscal direta.</p>
+        `
+      },
+      PAG_VALE: {
+        group: 'pagamento',
+        title: 'MEIO DE PAGAMENTO: VALE',
+        subtitle: 'Crédito de Troca',
+        content: `
+          <p>Saldo concedido a clientes por devolução de mercadorias ou antecipação comercial. Utilizado como abatimento em compras futuras.</p>
+        `
+      },
+      EMP_3: {
+        group: 'empresa',
+        title: 'FILIAL 3 — ZÉ GRANDE (MIGUEL COUTO)',
+        subtitle: 'Matriz Comercial',
+        content: `
+          <p>Loja de materiais de construção em Miguel Couto. Representa a filial com maior volume transacional diário no sistema Automec.</p>
+        `
+      },
+      EMP_4: {
+        group: 'empresa',
+        title: 'FILIAL 4 — CASA X CONSTRUÇÃO',
+        subtitle: 'Decoração e Utilidades',
+        content: `
+          <p>Filial focada em utilidades domésticas, tintas e acabamentos finos.</p>
+        `
+      }
+    };
+
+    // Build Vis.js nodes dataset with enterprise card styling
+    function buildNodesDataset(nodesList) {
+      return new vis.DataSet(nodesList.map(node => {
+        const theme = categoryTheme[node.group] || categoryTheme.tabela;
+        const isHub = node.isHub || false;
+
+        // Elegant multi-line HTML label without cartoon emojis
+        const labelText = isHub
+          ? `<b>${node.name}</b>\n<font color="#94a3b8">${node.sub}</font>`
+          : `<b>${node.name}</b>\n<font color="#94a3b8">${node.sub}</font>`;
+
+        return {
+          id: node.id,
+          label: labelText,
+          group: node.group,
+          shape: 'box',
+          x: node.x,
+          y: node.y,
+          margin: isHub 
+            ? { top: 14, right: 20, bottom: 14, left: 20 }
+            : { top: 10, right: 16, bottom: 10, left: 16 },
+          shapeProperties: {
+            borderRadius: 6
+          },
+          borderWidth: isHub ? 2 : 1.5,
+          borderWidthSelected: 2.5,
+          color: {
+            background: theme.bg,
+            border: theme.border,
+            highlight: {
+              background: '#151e33',
+              border: '#38bdf8'
+            },
+            hover: {
+              background: '#1a2640',
+              border: '#60a5fa'
+            }
+          },
+          font: {
+            multi: 'html',
+            face: 'Plus Jakarta Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+            color: '#94a3b8',
+            size: isHub ? 11.5 : 10.5,
+            bold: {
+              color: '#ffffff',
+              face: 'Plus Jakarta Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+              size: isHub ? 14 : 12.5,
+              vadjust: -2
+            }
+          },
+          shadow: {
+            enabled: true,
+            color: 'rgba(0, 0, 0, 0.45)',
+            size: isHub ? 10 : 6,
+            x: 0,
+            y: 3
+          }
+        };
+      }));
+    }
+
+    // Build Vis.js edges with clean architectural lines
+    function buildEdgesDataset(edgesList) {
+      return new vis.DataSet(edgesList.map((e, idx) => ({
+        id: 'edge_' + idx,
+        from: e.from,
+        to: e.to,
+        dashes: e.dashes ? [6, 4] : false,
+        arrows: {
+          to: { enabled: true, scaleFactor: 0.5, type: 'arrow' }
+        },
+        color: {
+          color: 'rgba(100, 116, 139, 0.35)',
+          highlight: '#38bdf8',
+          hover: '#94a3b8'
+        },
+        width: 1.5,
+        hoverWidth: 2,
+        selectionWidth: 2.5,
+        smooth: {
+          type: 'cubicBezier',
+          forceDirection: 'none',
+          roundness: 0.15
+        }
+      })));
+    }
+
+    // Initialize Network
+    const container = document.getElementById('network');
+    let currentNodes = buildNodesDataset(nodesRaw);
+    let currentEdges = buildEdgesDataset(edgesRaw);
+
+    const options = {
+      physics: {
+        enabled: true,
+        solver: 'forceAtlas2Based',
+        forceAtlas2Based: {
+          gravitationalConstant: -1000,
+          centralGravity: 0.005,
+          springLength: 200,
+          springConstant: 0.05,
+          damping: 0.7,
+          avoidOverlap: 1
+        },
+        stabilization: {
+          iterations: 150,
+          updateInterval: 25,
+          fit: true
+        }
+      },
+      interaction: {
+        hover: true,
+        tooltipDelay: 150,
+        zoomView: true,
+        dragView: true,
+        navigationButtons: false
+      }
+    };
+
+    const network = new vis.Network(container, { nodes: currentNodes, edges: currentEdges }, options);
+
+    // Click handler: Open entity inspector
+    network.on('click', function(params) {
+      if (params.nodes.length > 0) {
+        showDoc(params.nodes[0]);
+      }
+    });
+
+    let currentSelectedNode = 'SAIDAESTOQUE';
+
+    function showDoc(nodeId) {
+      const doc = docs[nodeId];
+      const sidebar = document.getElementById('sidebar');
+      const topBar = document.getElementById('top-bar');
+
+      if (doc) {
+        currentSelectedNode = nodeId;
+        const theme = categoryTheme[doc.group] || categoryTheme.tabela;
+        
+        document.getElementById('side-badge').innerText = theme.label;
+        document.getElementById('side-badge').style.background = theme.badgeBg;
+        document.getElementById('side-badge').style.color = theme.accent;
+        document.getElementById('side-badge').style.border = `1px solid ${theme.border}`;
+        
+        document.getElementById('side-title').innerText = doc.title;
+        document.getElementById('side-sub').innerText = doc.subtitle;
+        document.getElementById('side-body').innerHTML = doc.content;
+
+        sidebar.classList.remove('hidden');
+        topBar.classList.remove('drawer-closed');
+      }
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.add('hidden');
+      document.getElementById('top-bar').classList.add('drawer-closed');
+    }
+
+    function fitNetwork() {
+      network.fit({
+        animation: { duration: 600, easingFunction: 'easeInOutQuad' }
+      });
+    }
+
+    function resetPhysics() {
+      network.setOptions({ physics: { enabled: true } });
+      physicsEnabled = true;
+      updatePhysicsButton();
+      network.stabilize(120);
+      setTimeout(fitNetwork, 500);
+    }
+
+    let physicsEnabled = true;
+    function togglePhysics() {
+      physicsEnabled = !physicsEnabled;
+      network.setOptions({ physics: { enabled: physicsEnabled } });
+      updatePhysicsButton();
+    }
+
+    function updatePhysicsButton() {
+      const label = document.getElementById('physics-label');
+      const btn = document.getElementById('physics-btn');
+      if (physicsEnabled) {
+        label.innerText = 'Física: Ativa';
+        btn.classList.add('active');
+      } else {
+        label.innerText = 'Física: Pausada';
+        btn.classList.remove('active');
+      }
+    }
+
+    function zoomIn() {
+      const scale = network.getScale() * 1.3;
+      network.moveTo({ scale: scale, animation: { duration: 250 } });
+    }
+
+    function zoomOut() {
+      const scale = network.getScale() / 1.3;
+      network.moveTo({ scale: scale, animation: { duration: 250 } });
+    }
+
+    function jumpToNode(nodeId) {
+      if (!nodeId) return;
+      network.focus(nodeId, {
+        scale: 1.25,
+        animation: { duration: 500, easingFunction: 'easeInOutQuad' }
+      });
+      network.selectNodes([nodeId]);
+      showDoc(nodeId);
+    }
+
+    function handleSearch(term) {
+      if (!term.trim()) {
+        fitNetwork();
+        return;
+      }
+      const lower = term.toLowerCase();
+      const match = nodesRaw.find(n => 
+        n.name.toLowerCase().includes(lower) || 
+        n.sub.toLowerCase().includes(lower) ||
+        n.id.toLowerCase().includes(lower)
+      );
+      if (match) {
+        jumpToNode(match.id);
+      }
+    }
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (cat === 'all') {
+        currentNodes = buildNodesDataset(nodesRaw);
+        currentEdges = buildEdgesDataset(edgesRaw);
+        network.setData({ nodes: currentNodes, edges: currentEdges });
+        document.getElementById('stats-counter').innerText = `${nodesRaw.length} nós • ${edgesRaw.length} links`;
+        fitNetwork();
+        return;
+      }
+
+      let filteredNodes = [];
+      if (cat === 'view_regra') {
+        filteredNodes = nodesRaw.filter(n => n.group === 'view' || n.group === 'regra');
+      } else {
+        filteredNodes = nodesRaw.filter(n => n.group === cat);
+      }
+
+      // Always include SAIDAESTOQUE as bridge
+      if (!filteredNodes.some(n => n.id === 'SAIDAESTOQUE')) {
+        const se = nodesRaw.find(n => n.id === 'SAIDAESTOQUE');
+        if (se) filteredNodes.push(se);
+      }
+
+      const activeIds = new Set(filteredNodes.map(n => n.id));
+      const filteredEdges = edgesRaw.filter(e => activeIds.has(e.from) && activeIds.has(e.to));
+
+      currentNodes = buildNodesDataset(filteredNodes);
+      currentEdges = buildEdgesDataset(filteredEdges);
+      network.setData({ nodes: currentNodes, edges: currentEdges });
+      document.getElementById('stats-counter').innerText = `${filteredNodes.length} nós • ${filteredEdges.length} links`;
+      fitNetwork();
+    }
+
+    // Keyboard shortcuts: '/' focuses search, 'Escape' closes drawer
+    window.addEventListener('keydown', function(e) {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        document.getElementById('search').focus();
+      }
+      if (e.key === 'Escape') {
+        closeSidebar();
+        document.getElementById('search').blur();
+      }
+    });
+
+    function copyEntityName() {
+      navigator.clipboard.writeText(currentSelectedNode);
+    }
+
+    function copySnippet(btn, code) {
+      navigator.clipboard.writeText(code);
+      const original = btn.innerText;
+      btn.innerText = 'COPIADO!';
+      setTimeout(() => btn.innerText = original, 1800);
+    }
+
+    // Initial state
+    setTimeout(() => {
+      showDoc('SAIDAESTOQUE');
+      fitNetwork();
+      updatePhysicsButton();
+    }, 350);
+  </script>
+</body>
+</html>

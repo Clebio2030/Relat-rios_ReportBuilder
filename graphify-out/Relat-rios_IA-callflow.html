@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatórios_IA — Complete Call Flow &amp; Architecture Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+  --warn: #fbbf24; --err: #f87171; --ok: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.4rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 1.7rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+h4 { font-size: 1.05rem; margin: 20px 0 8px; color: var(--warn); }
+p { margin: 8px 0; color: var(--muted); }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+.mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; overflow-x: auto; position: relative; }
+.mermaid.is-enhanced { padding: 0; overflow: hidden; min-height: 260px; }
+.mermaid-viewport { padding: 54px 24px 24px; overflow: hidden; cursor: grab; touch-action: none; min-height: 260px; }
+.mermaid-viewport.is-dragging { cursor: grabbing; }
+.mermaid-viewport svg { max-width: none !important; height: auto; transform-origin: 0 0; transition: transform 120ms ease; }
+.mermaid-toolbar { position: absolute; top: 10px; right: 10px; z-index: 3; display: flex; align-items: center; gap: 6px; padding: 6px; background: rgba(15,23,42,0.92); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+.mermaid-toolbar button, .mermaid-toolbar .zoom-level { height: 28px; min-width: 32px; border: 1px solid var(--border); border-radius: 6px; background: #1e293b; color: var(--text); font: 600 0.78rem system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; }
+.mermaid-toolbar button { cursor: pointer; }
+.mermaid-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.mermaid-toolbar .zoom-level { min-width: 52px; color: var(--muted); background: transparent; }
+.call-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+.call-table th { background: #1a2744; color: var(--accent); text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.call-table td { padding: 8px 14px; border: 1px solid var(--border); vertical-align: top; }
+.call-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.tag-async { background: #7c3aed33; color: #a78bfa; }
+.tag-class { background: #05966933; color: var(--ok); }
+.tag-func { background: #2563eb33; color: var(--accent); }
+.tag-cmd { background: #d9770633; color: var(--warn); }
+.tag-endpoint { background: #dc262633; color: var(--err); }
+.tag-hook { background: #db277733; color: #f472b6; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin: 16px 0; }
+.arrow-chain { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent); padding: 10px; background: rgba(56,189,248,0.06); border-radius: 6px; }
+code { font-family: 'Fira Code', 'Cascadia Code', monospace; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-size: 0.88em; }
+ul, ol { margin: 8px 0 8px 24px; color: var(--muted); }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.nav { position: sticky; top: 0; background: var(--bg); z-index: 10; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+@media (max-width: 768px) { .container { padding: 16px; } h1 { font-size: 1.8rem; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Relatórios_IA — Complete Call Flow &amp; Architecture Documentation</h1>
+<p class="subtitle">Generated from graphify knowledge graph: 29 nodes, 33 edges, 5 communities. Commit: unknown</p>
+
+<div class="nav">
+    <a href="#overview">Architecture Overview</a>
+    <a href="#outputs-docs">Outputs &amp; Docs</a>
+    <a href="#tabelas-e-modelagem-do-erp-automec">Tabelas e Modelagem do ERP Automec</a>
+    <a href="#ciclo-de-vida-e-status-do-pedido">Ciclo de Vida e Status do Pedido</a>
+    <a href="#meios-de-pagamento-e-regra-do-dinheiro">Meios de Pagamento e Regra do Dinheiro</a>
+    <a href="#auditoria-fiscal-e-risco-dimp">Auditoria Fiscal e Risco DIMP</a>
+</div>
+
+<!-- ====== Architecture Overview ====== -->
+<h2 id="overview">1. Architecture Overview</h2>
+
+<div class="mermaid">
+
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>4 nodes</small>")
+    class OUTPUTS_DOCS_ED82387C module;
+    TABELAS_E_MODELAGEM_DO_ERP_AUTOMEC_3AF7E063("Tabelas e Modelagem do ERP Automec<br/><small>10 nodes</small>")
+    class TABELAS_E_MODELAGEM_DO_ERP_AUTOMEC_3AF7E063 module;
+    CICLO_DE_VIDA_E_STATUS_DO_PEDIDO_66C1677C("Ciclo de Vida e Status do Pedido<br/><small>8 nodes</small>")
+    class CICLO_DE_VIDA_E_STATUS_DO_PEDIDO_66C1677C module;
+    MEIOS_DE_PAGAMENTO_E_REGRA_DO_DINHEIRO_BF029C96("Meios de Pagamento e Regra do Dinheiro<br/><small>4 nodes</small>")
+    class MEIOS_DE_PAGAMENTO_E_REGRA_DO_DINHEIRO_BF029C96 module;
+    AUDITORIA_FISCAL_E_RISCO_DIMP_BBD641A5("Auditoria Fiscal e Risco DIMP<br/><small>3 nodes</small>")
+    class AUDITORIA_FISCAL_E_RISCO_DIMP_BBD641A5 module;
+    TABELAS_E_MODELAGEM_DO_ERP_AUTOMEC_3AF7E063 -->|reads from| MEIOS_DE_PAGAMENTO_E_REGRA_DO_DINHEIRO_BF029C96
+    CICLO_DE_VIDA_E_STATUS_DO_PEDIDO_66C1677C -->|implements| AUDITORIA_FISCAL_E_RISCO_DIMP_BBD641A5
+    CICLO_DE_VIDA_E_STATUS_DO_PEDIDO_66C1677C -->|references| TABELAS_E_MODELAGEM_DO_ERP_AUTOMEC_3AF7E063
+    CICLO_DE_VIDA_E_STATUS_DO_PEDIDO_66C1677C -->|references| MEIOS_DE_PAGAMENTO_E_REGRA_DO_DINHEIRO_BF029C96
+    AUDITORIA_FISCAL_E_RISCO_DIMP_BBD641A5 -->|relates| CICLO_DE_VIDA_E_STATUS_DO_PEDIDO_66C1677C
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h4>Architecture Layers</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
+      <tr><td>Outputs &amp; Docs</td><td>4</td><td><code>2</code></td></tr><tr><td>Tabelas e Modelagem do ERP Automec</td><td>10</td><td><code>0</code></td></tr><tr><td>Ciclo de Vida e Status do Pedido</td><td>8</td><td><code>1</code></td></tr><tr><td>Meios de Pagamento e Regra do Dinheiro</td><td>4</td><td><code>3</code></td></tr><tr><td>Auditoria Fiscal e Risco DIMP</td><td>3</td><td><code>4</code></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Core Flow</h4>
+    <div class="arrow-chain">Outputs &amp; Docs -&gt; Tabelas e Modelagem do ERP Automec -&gt; Meios de Pagamento e Regra do Dinheiro -&gt; Ciclo de Vida e Status do Pedido -&gt; Auditoria Fiscal e Risco DIMP</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h4>Graph Report Highlights</h4>
+    <ul>
+      <li>29 nodes · 33 edges · 5 communities (3 shown, 2 thin omitted)</li>
+      <li>Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.95)</li>
+      <li>Token cost: 1,250 input · 850 output</li>
+      <li>1. `NAO_EMITIDO_PEDIDOS` - 7 edges</li>
+      <li>2. `Especificação da View NAO_EMITIDO_PEDIDOS` - 7 edges</li>
+      <li>3. `Dicionário de Status SAIDAESTOQUE` - 5 edges</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<!-- ====== 2. Outputs & Docs ====== -->
+<h2 id="outputs-docs">2. Outputs &amp; Docs</h2>
+<p>Outputs &amp; Docs groups implementation around agentsmd, automec, brain, rede, mostly in AGENTS.md, AUTOMEC_BRAIN/README.md, AUTOMEC_BRAIN/rede_neural.html. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Outputs &amp; Docs (4 nodes, 3 edges)
+    subgraph outputs_docs_AGENTS_md_e6999d93["AGENTS.md"]
+        agents_md_1f169a2a("Diretrizes &amp; Conhecimento Permanente AG...<br/><small>AGENTS.md</small>")
+        concept_database_firebird_2ae9862c("Firebird 5.0 DB (MIAUTOMEC.FDB)<br/><small>AGENTS.md</small>")
+    end
+    automec_brain_readme_dec47e52("Cérebro de Notas Automec<br/><small>AUTOMEC_BRAIN/README.md</small>")
+    automec_brain_rede_neural_html_ca4c8917("Visualizador Rede Neural HTML<br/><small>AUTOMEC_BRAIN/rede_neural.html</small>")
+    agents_md_1f169a2a -->|relates| automec_brain_readme_dec47e52
+    agents_md_1f169a2a -->|references| concept_database_firebird_2ae9862c
+    automec_brain_readme_dec47e52 -->|references| automec_brain_rede_neural_html_ca4c8917
+    class agents_md_1f169a2a concept;
+    class concept_database_firebird_2ae9862c klass;
+    class automec_brain_readme_dec47e52 concept;
+    class automec_brain_rede_neural_html_ca4c8917 concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Firebird 5.0 DB (MIAUTOMEC.FDB)</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Firebird 5.0 DB (MIAUTOMEC.FDB) node in AGENTS.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Diretrizes &amp; Conhecimento Permanente AGENTS.md</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Diretrizes &amp; Conhecimento Permanente AGENTS.md.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Cérebro de Notas Automec</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Cérebro de Notas Automec.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Visualizador Rede Neural HTML</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/rede_neural.html</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Visualizador Rede Neural HTML.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>AGENTS.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/README.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/rede_neural.html</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x2, relates x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 3. Tabelas e Modelagem do ERP Automec ====== -->
+<h2 id="tabelas-e-modelagem-do-erp-automec">3. Tabelas e Modelagem do ERP Automec</h2>
+<p>Tabelas e Modelagem do ERP Automec groups implementation around nao, emitido, doc, tabela, mostly in NAO_EMITIDO_PEDIDOS.sql, AUTOMEC_BRAIN/01_Tabelas/CONFIGURACAO.md, AUTOMEC_BRAIN/01_Tabelas/CTARECEBER_PROV.md. This section covers 10 nodes and 9 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Tabelas e Modelagem do ERP Automec (10 nodes, 9 edges)
+    subgraph tabelas_e_modelagem_do_erp_automec_External_gene_e90f6608["External / generated"]
+        saidaestoque_dcb55b29("SAIDAESTOQUE")
+        configuracao_8905f992("CONFIGURACAO")
+        ctareceber_prov_405109bc("CTARECEBER_PROV")
+        notafiscal_629147ab("NOTAFISCAL")
+    end
+    subgraph tabelas_e_modelagem_do_erp_automec_NAO_EMITIDO_P_de85c380["NAO_EMITIDO_PEDIDOS.sql"]
+        nao_emitido_pedidos_nao_emitido_pedidos_806d7ccf("NAO_EMITIDO_PEDIDOS<br/><small>NAO_EMITIDO_PEDIDOS.sql</small>")
+        nao_emitido_pedidos_605c748c("NAO_EMITIDO_PEDIDOS.sql")
+    end
+    automec_brain_01_tabelas_configuracao_00d8bccc("Doc Tabela CONFIGURACAO<br/><small>AUTOMEC_BRAIN/01_Tabelas/CONFIGURACAO.md</small>")
+    automec_brain_01_tabelas_ctareceber_prov_0549c52e("Doc Tabela CTARECEBER_PROV<br/><small>AUTOMEC_BRAIN/01_Tabelas/CTARECEBER_PROV.md</small>")
+    automec_brain_01_tabelas_notafiscal_2d8db856("Doc Tabela NOTAFISCAL<br/><small>AUTOMEC_BRAIN/01_Tabelas/NOTAFISCAL.md</small>")
+    automec_brain_01_tabelas_saidaestoque_3a065255("Doc Tabela SAIDAESTOQUE<br/><small>AUTOMEC_BRAIN/01_Tabelas/SAIDAESTOQUE.md</small>")
+    nao_emitido_pedidos_nao_emitido_pedidos_806d7ccf -->|reads from| saidaestoque_dcb55b29
+    nao_emitido_pedidos_nao_emitido_pedidos_806d7ccf -->|reads from| configuracao_8905f992
+    nao_emitido_pedidos_nao_emitido_pedidos_806d7ccf -->|reads from| ctareceber_prov_405109bc
+    nao_emitido_pedidos_nao_emitido_pedidos_806d7ccf -->|reads from| notafiscal_629147ab
+    automec_brain_01_tabelas_configuracao_00d8bccc -->|references| configuracao_8905f992
+    automec_brain_01_tabelas_ctareceber_prov_0549c52e -->|references| ctareceber_prov_405109bc
+    automec_brain_01_tabelas_notafiscal_2d8db856 -->|references| notafiscal_629147ab
+    automec_brain_01_tabelas_saidaestoque_3a065255 -->|references| saidaestoque_dcb55b29
+    nao_emitido_pedidos_605c748c -->|contains| nao_emitido_pedidos_nao_emitido_pedidos_806d7ccf
+    class saidaestoque_dcb55b29 klass;
+    class configuracao_8905f992 klass;
+    class ctareceber_prov_405109bc klass;
+    class notafiscal_629147ab klass;
+    class nao_emitido_pedidos_nao_emitido_pedidos_806d7ccf klass;
+    class nao_emitido_pedidos_605c748c klass;
+    class automec_brain_01_tabelas_configuracao_00d8bccc concept;
+    class automec_brain_01_tabelas_ctareceber_prov_0549c52e concept;
+    class automec_brain_01_tabelas_notafiscal_2d8db856 concept;
+    class automec_brain_01_tabelas_saidaestoque_3a065255 concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>CONFIGURACAO</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>CTARECEBER_PROV</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CTARECEBER_PROV node in project.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>NAO_EMITIDO_PEDIDOS.sql</code><br><small style="color:var(--muted)">NAO_EMITIDO_PEDIDOS.sql</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>NAO_EMITIDO_PEDIDOS.sql node in NAO_EMITIDO_PEDIDOS.sql.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>NAO_EMITIDO_PEDIDOS</code><br><small style="color:var(--muted)">NAO_EMITIDO_PEDIDOS.sql</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>NAO_EMITIDO_PEDIDOS node in NAO_EMITIDO_PEDIDOS.sql.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>NOTAFISCAL</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>NOTAFISCAL node in project.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>SAIDAESTOQUE</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>SAIDAESTOQUE node in project.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Doc Tabela CONFIGURACAO</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/01_Tabelas/CONFIGURACAO.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Doc Tabela CONFIGURACAO.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>Doc Tabela CTARECEBER_PROV</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/01_Tabelas/CTARECEBER_PROV.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Doc Tabela CTARECEBER_PROV.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Doc Tabela NOTAFISCAL</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/01_Tabelas/NOTAFISCAL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Doc Tabela NOTAFISCAL.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Doc Tabela SAIDAESTOQUE</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/01_Tabelas/SAIDAESTOQUE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Doc Tabela SAIDAESTOQUE.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>NAO_EMITIDO_PEDIDOS.sql</code></td><td>2 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/01_Tabelas/CONFIGURACAO.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/01_Tabelas/CTARECEBER_PROV.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/01_Tabelas/NOTAFISCAL.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/01_Tabelas/SAIDAESTOQUE.md</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: reads from x4, references x4, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. Ciclo de Vida e Status do Pedido ====== -->
+<h2 id="ciclo-de-vida-e-status-do-pedido">4. Ciclo de Vida e Status do Pedido</h2>
+<p>Ciclo de Vida e Status do Pedido groups implementation around status, automec, brain, pedido, mostly in AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md, AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md, AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md. This section covers 8 nodes and 11 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Ciclo de Vida e Status do Pedido (8 nodes, 11 edges)
+    subgraph ciclo_de_vida_e_status_do_pedido_AUTOMEC_BRAIN_0_b6e9450f["AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md"]
+        automec_brain_02_status_e_ciclo_de_vida_status_s_339116d0("Dicionário de Status SAIDAESTOQUE<br/><small>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small>")
+        concept_status_1_pedido_10c76a03("Status 1: Pedido Finalizado sem Documen...<br/><small>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small>")
+        concept_status_0_em_aberto_d442aba3("Status 0: Pedido em Aberto (Digitação /...<br/><small>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small>")
+        concept_status_2_42_cancelado_072e74e3("Status 2 e 42: Cancelados / Estornados<br/><small>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small>")
+    end
+    subgraph ciclo_de_vida_e_status_do_pedido_AUTOMEC_BRAIN_0_7fc61150["AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md"]
+        automec_brain_02_status_e_ciclo_de_vida_diferenc_301556e8("Diferença Pedido Normal vs Troca<br/><small>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md</small>")
+        concept_status_40_troca_cee3ccdf("Status 40: Troca / Devolução de Mercadoria<br/><small>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md</small>")
+    end
+    subgraph ciclo_de_vida_e_status_do_pedido_AUTOMEC_BRAIN_0_af3b842f["AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md"]
+        automec_brain_04_views_e_consultas_nao_emitido_p_30a6dc4e("Especificação da View NAO_EMITIDO_PEDIDOS<br/><small>AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md</small>")
+        rationale_agrupamento_1_linha_bbad4216("Agrupamento 1 Linha por Pedido (GROUP B...<br/><small>AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md</small>")
+    end
+    automec_brain_02_status_e_ciclo_de_vida_diferenc_301556e8 -->|relates| concept_status_1_pedido_10c76a03
+    automec_brain_02_status_e_ciclo_de_vida_diferenc_301556e8 -->|relates| concept_status_40_troca_cee3ccdf
+    automec_brain_02_status_e_ciclo_de_vida_status_s_339116d0 -->|implements| concept_status_0_em_aberto_d442aba3
+    automec_brain_02_status_e_ciclo_de_vida_status_s_339116d0 -->|implements| concept_status_1_pedido_10c76a03
+    automec_brain_02_status_e_ciclo_de_vida_status_s_339116d0 -->|implements| concept_status_2_42_cancelado_072e74e3
+    automec_brain_02_status_e_ciclo_de_vida_status_s_339116d0 -->|implements| concept_status_40_troca_cee3ccdf
+    automec_brain_04_views_e_consultas_nao_emitido_p_30a6dc4e -->|cites| concept_status_2_42_cancelado_072e74e3
+    automec_brain_04_views_e_consultas_nao_emitido_p_30a6dc4e -->|references| concept_status_0_em_aberto_d442aba3
+    automec_brain_04_views_e_consultas_nao_emitido_p_30a6dc4e -->|references| concept_status_1_pedido_10c76a03
+    automec_brain_04_views_e_consultas_nao_emitido_p_30a6dc4e -->|references| concept_status_40_troca_cee3ccdf
+    automec_brain_04_views_e_consultas_nao_emitido_p_30a6dc4e -->|explains| rationale_agrupamento_1_linha_bbad4216
+    class automec_brain_02_status_e_ciclo_de_vida_status_s_339116d0 concept;
+    class concept_status_1_pedido_10c76a03 klass;
+    class concept_status_0_em_aberto_d442aba3 klass;
+    class concept_status_2_42_cancelado_072e74e3 klass;
+    class automec_brain_02_status_e_ciclo_de_vida_diferenc_301556e8 concept;
+    class concept_status_40_troca_cee3ccdf klass;
+    class automec_brain_04_views_e_consultas_nao_emitido_p_30a6dc4e concept;
+    class rationale_agrupamento_1_linha_bbad4216 concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Status 0: Pedido em Aberto (Digitação / Orçamento)</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Turns a local path or remote repository into analysis context.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Status 1: Pedido Finalizado sem Documento Fiscal</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Status 1: Pedido Finalizado sem Documento Fiscal node in AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Status 2 e 42: Cancelados / Estornados</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Status 2 e 42: Cancelados / Estornados node in AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Status 40: Troca / Devolução de Mercadoria</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Status 40: Troca / Devolução de Mercadoria node in AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>Diferença Pedido Normal vs Troca</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Diferença Pedido Normal vs Troca.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Dicionário de Status SAIDAESTOQUE</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Dicionário de Status SAIDAESTOQUE.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Especificação da View NAO_EMITIDO_PEDIDOS</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Especificação da View NAO_EMITIDO_PEDIDOS.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>Agrupamento 1 Linha por Pedido (GROUP BY SE.NRPEDIDO)</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Agrupamento 1 Linha por Pedido (GROUP BY SE.NRPEDIDO).</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</code></td><td>4 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/DIFERENCA_PEDIDO_VS_TROCA.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/04_Views_E_Consultas/NAO_EMITIDO_PEDIDOS.md</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: implements x4, references x3, relates x2, cites x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Meios de Pagamento e Regra do Dinheiro ====== -->
+<h2 id="meios-de-pagamento-e-regra-do-dinheiro">5. Meios de Pagamento e Regra do Dinheiro</h2>
+<p>Meios de Pagamento e Regra do Dinheiro groups implementation around automec, brain, formas, pagamento, mostly in AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md, AUTOMEC_BRAIN/01_Tabelas/RECEBTO.md. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Meios de Pagamento e Regra do Dinheiro (4 nodes, 3 edges)
+    subgraph meios_de_pagamento_e_regra_do_dinheiro_AUTOMEC_B_5e7ac6c9["AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md"]
+        automec_brain_03_regras_de_negocio_formas_de_pag_c26594bc("Regra Formas de Pagamento e Dinheiro<br/><small>AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md</small>")
+        rationale_exclusao_dinheiro_b0fb6d0e("Regra de Exclusão de Dinheiro na Auditoria<br/><small>AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md</small>")
+    end
+    automec_brain_01_tabelas_recebto_04fb4730("Doc Tabela RECEBTO<br/><small>AUTOMEC_BRAIN/01_Tabelas/RECEBTO.md</small>")
+    recebto_8e7df573("RECEBTO")
+    automec_brain_01_tabelas_recebto_04fb4730 -->|references| recebto_8e7df573
+    automec_brain_03_regras_de_negocio_formas_de_pag_c26594bc -->|explains| rationale_exclusao_dinheiro_b0fb6d0e
+    automec_brain_03_regras_de_negocio_formas_de_pag_c26594bc -->|references| recebto_8e7df573
+    class automec_brain_03_regras_de_negocio_formas_de_pag_c26594bc concept;
+    class rationale_exclusao_dinheiro_b0fb6d0e concept;
+    class automec_brain_01_tabelas_recebto_04fb4730 concept;
+    class recebto_8e7df573 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>RECEBTO</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>RECEBTO node in project.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Doc Tabela RECEBTO</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/01_Tabelas/RECEBTO.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Doc Tabela RECEBTO.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Regra Formas de Pagamento e Dinheiro</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Regra Formas de Pagamento e Dinheiro.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Regra de Exclusão de Dinheiro na Auditoria</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Regra de Exclusão de Dinheiro na Auditoria.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>AUTOMEC_BRAIN/03_Regras_De_Negocio/FORMAS_DE_PAGAMENTO_E_DINHEIRO.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/01_Tabelas/RECEBTO.md</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x2, explains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. Auditoria Fiscal e Risco DIMP ====== -->
+<h2 id="auditoria-fiscal-e-risco-dimp">6. Auditoria Fiscal e Risco DIMP</h2>
+<p>Auditoria Fiscal e Risco DIMP groups implementation around fiscal, status, automec, brain, mostly in AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md, AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md. This section covers 3 nodes and 2 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Auditoria Fiscal e Risco DIMP (3 nodes, 2 edges)
+    subgraph auditoria_fiscal_e_risco_dimp_AUTOMEC_BRAIN_03_R_2095b27b["AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md"]
+        automec_brain_03_regras_de_negocio_emissao_fisca_d51dc121("Regra Emissão Fiscal vs Não Emitido<br/><small>AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md</small>")
+        rationale_risco_fiscal_dimp_70d278f9("Risco Fiscal DIMP (Cruzamento Cartão/PI...<br/><small>AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md</small>")
+    end
+    concept_status_3_emitido_fiscal_4e9cb597("Status 3: Venda com Emissão Fiscal Auto...<br/><small>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small>")
+    automec_brain_03_regras_de_negocio_emissao_fisca_d51dc121 -->|explains| rationale_risco_fiscal_dimp_70d278f9
+    automec_brain_03_regras_de_negocio_emissao_fisca_d51dc121 -->|relates| concept_status_3_emitido_fiscal_4e9cb597
+    class automec_brain_03_regras_de_negocio_emissao_fisca_d51dc121 concept;
+    class rationale_risco_fiscal_dimp_70d278f9 concept;
+    class concept_status_3_emitido_fiscal_4e9cb597 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Status 3: Venda com Emissão Fiscal Autorizada</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Status 3: Venda com Emissão Fiscal Autorizada node in AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Regra Emissão Fiscal vs Não Emitido</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Regra Emissão Fiscal vs Não Emitido.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Risco Fiscal DIMP (Cruzamento Cartão/PIX com SEFAZ)</code><br><small style="color:var(--muted)">AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Risco Fiscal DIMP (Cruzamento Cartão/PIX com SEFAZ).</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>AUTOMEC_BRAIN/03_Regras_De_Negocio/EMISSAO_FISCAL_VS_NAO_EMITIDO.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>AUTOMEC_BRAIN/02_Status_E_Ciclo_De_Vida/STATUS_SAIDAESTOQUE.md</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: explains x1, relates x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<h2 id="hyperedges">Group Relationships (Hyperedges)</h2>
+<div class="grid">
+
+  <div class="card">
+    <h4>Tabelas Centrais do ERP Automec (Venda, Financeiro, Fiscal, Cadastros)</h4>
+    <p><code>implement</code> — 5 participants</p>
+    <ul>
+      <li><code>saidaestoque</code></li>
+      <li><code>ctareceber_prov</code></li>
+      <li><code>configuracao</code></li>
+      <li><code>recebto</code></li>
+      <li><code>notafiscal</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Ciclo de Vida do Pedido (Em Aberto -&gt; Pedido -&gt; Fiscal ou Troca/Cancelado)</h4>
+    <p><code>form</code> — 5 participants</p>
+    <ul>
+      <li><code>concept_status_0_em_aberto</code></li>
+      <li><code>concept_status_1_pedido</code></li>
+      <li><code>concept_status_3_emitido_fiscal</code></li>
+      <li><code>concept_status_40_troca</code></li>
+      <li><code>concept_status_2_42_cancelado</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Mecanismo de Auditoria Fiscal de Vendas Não Emitidas e Não Dinheiro</h4>
+    <p><code>participate_in</code> — 4 participants</p>
+    <ul>
+      <li><code>nao_emitido_pedidos_nao_emitido_pedidos</code></li>
+      <li><code>rationale_agrupamento_1_linha</code></li>
+      <li><code>rationale_exclusao_dinheiro</code></li>
+      <li><code>rationale_risco_fiscal_dimp</code></li>
+    </ul>
+  </div>
+</div>
+<hr>
+<h2 id="stats">Project Statistics</h2>
+
+<div class="grid">
+  <div class="card">
+    <h4>Graph</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>Nodes</td><td>29</td></tr>
+      <tr><td>Edges</td><td>33</td></tr>
+      <tr><td>Hyperedges</td><td>3</td></tr>
+      <tr><td>Communities</td><td>5</td></tr>
+      <tr><td>Documented Sections</td><td>5</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Edge Confidence</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>EXTRACTED</td><td>29</td></tr>
+      <tr><td>INFERRED</td><td>4</td></tr>
+      <tr><td>AMBIGUOUS</td><td>0</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
+  <p>Relatórios_IA — Architecture Documentation</p>
+  <p>Generated: 2026-11-05 18:53 UTC · graphify callflow-html</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+(function () {
+  const mermaidConfig = {
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#38bdf8',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#334155',
+      lineColor: '#64748b',
+      textColor: '#e2e8f0',
+    }
+  };
+
+  mermaid.initialize(mermaidConfig);
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function enhanceMermaidDiagrams() {
+    document.querySelectorAll('.mermaid').forEach((container) => {
+      if (container.dataset.zoomReady === 'true') return;
+      const svg = container.querySelector('svg');
+      if (!svg) return;
+
+      container.dataset.zoomReady = 'true';
+      container.classList.add('is-enhanced');
+
+      const viewport = document.createElement('div');
+      viewport.className = 'mermaid-viewport';
+      svg.parentNode.insertBefore(viewport, svg);
+      viewport.appendChild(svg);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+      toolbar.innerHTML = [
+        '<button type="button" data-action="zoom-out" title="Zoom out">-</button>',
+        '<span class="zoom-level" data-role="level">100%</span>',
+        '<button type="button" data-action="zoom-in" title="Zoom in">+</button>',
+        '<button type="button" data-action="fit" title="Fit width">Fit</button>',
+        '<button type="button" data-action="reset" title="Reset view">Reset</button>'
+      ].join('');
+      container.insertBefore(toolbar, viewport);
+
+      const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 };
+      const level = toolbar.querySelector('[data-role="level"]');
+
+      function applyTransform() {
+        svg.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+        level.textContent = `${Math.round(state.scale * 100)}%`;
+      }
+
+      function zoomBy(delta) {
+        state.scale = clamp(state.scale + delta, 0.25, 3);
+        applyTransform();
+      }
+
+      function reset() {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      function fitWidth() {
+        const rawWidth = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width
+          ? svg.viewBox.baseVal.width
+          : svg.getBoundingClientRect().width / state.scale;
+        if (!rawWidth) {
+          reset();
+          return;
+        }
+        state.scale = clamp((viewport.clientWidth - 48) / rawWidth, 0.25, 1.4);
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      toolbar.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'zoom-in') zoomBy(0.15);
+        if (action === 'zoom-out') zoomBy(-0.15);
+        if (action === 'fit') fitWidth();
+        if (action === 'reset') reset();
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        zoomBy(event.deltaY < 0 ? 0.1 : -0.1);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        state.dragging = true;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture(event.pointerId);
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!state.dragging) return;
+        state.x = state.originX + event.clientX - state.startX;
+        state.y = state.originY + event.clientY - state.startY;
+        applyTransform();
+      });
+
+      function endDrag(event) {
+        if (!state.dragging) return;
+        state.dragging = false;
+        viewport.classList.remove('is-dragging');
+        if (viewport.hasPointerCapture(event.pointerId)) {
+          viewport.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+      applyTransform();
+    });
+  }
+
+  function renderMermaid() {
+    const result = mermaid.run
+      ? mermaid.run({ querySelector: '.mermaid' })
+      : Promise.resolve();
+    Promise.resolve(result)
+      .then(enhanceMermaidDiagrams)
+      .catch((error) => {
+        console.error('Mermaid render failed:', error);
+        enhanceMermaidDiagrams();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+})();
+</script>
+
+</body>
+</html>

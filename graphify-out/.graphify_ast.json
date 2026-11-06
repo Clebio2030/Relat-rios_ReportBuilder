@@ -1,0 +1,129 @@
+{
+  "nodes": [
+    {
+      "id": "nao_emitido_pedidos",
+      "label": "NAO_EMITIDO_PEDIDOS.sql",
+      "file_type": "code",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "label": "NAO_EMITIDO_PEDIDOS",
+      "file_type": "code",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "saidaestoque",
+      "label": "SAIDAESTOQUE",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "configuracao",
+      "label": "CONFIGURACAO",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "ctareceber_prov",
+      "label": "CTARECEBER_PROV",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "recebto",
+      "label": "RECEBTO",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "notafiscal",
+      "label": "NOTAFISCAL",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    }
+  ],
+  "edges": [
+    {
+      "source": "nao_emitido_pedidos",
+      "target": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "target": "saidaestoque",
+      "relation": "reads_from",
+      "confidence": "EXTRACTED",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": "L73",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "target": "configuracao",
+      "relation": "reads_from",
+      "confidence": "EXTRACTED",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "target": "ctareceber_prov",
+      "relation": "reads_from",
+      "confidence": "EXTRACTED",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "target": "recebto",
+      "relation": "reads_from",
+      "confidence": "EXTRACTED",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "target": "notafiscal",
+      "relation": "reads_from",
+      "confidence": "EXTRACTED",
+      "source_file": "NAO_EMITIDO_PEDIDOS.sql",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_origin": "ast"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "failed_sources": [],
+  "skipped_sources": [],
+  "extracted_sources": [
+    "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\NAO_EMITIDO_PEDIDOS.sql"
+  ]
+}

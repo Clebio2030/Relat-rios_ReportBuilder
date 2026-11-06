@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+    size: 215.9mm 279.4mm;
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    width: 215.9mm;
+    height: 279.4mm;
+    padding-top: 6.35mm;
+    padding-left: 6.35mm;
+    padding-right: 6.35mm;
+    padding-bottom: 11.9mm;
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+.report-container {
+    width: 203.2mm;
+    height: 261.15mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.title-band {
+    text-align: center;
+    padding-bottom: 1.5mm;
+    margin-bottom: 1mm;
+}
+.title-band h1 {
+    font-size: 15.5pt;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.3px;
+    margin-bottom: 1mm;
+}
+.title-band p {
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #222222;
+}
+.header-band {
+    border-bottom: 1.2px solid #000000;
+    padding-bottom: 1mm;
+    margin-bottom: 0.5mm;
+}
+.company-title {
+    font-size: 13pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2mm;
+    color: #000000;
+}
+.columns-header {
+    display: flex;
+    font-size: 10.5pt;
+    font-weight: bold;
+    color: #000000;
+}
+.col-h-deposito { width: 22mm; }
+.col-h-produto { width: 146mm; }
+.col-h-estoque { width: 35mm; text-align: right; }
+
+.details-container {
+    flex: 1;
+}
+.detail-item {
+    height: 13.23mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 0.75pt solid #b0b0b0;
+    padding: 0.5mm 0;
+}
+.line-1 {
+    display: flex;
+    font-size: 9.5pt;
+    color: #000000;
+    align-items: baseline;
+}
+.d-dep { width: 22mm; font-size: 9pt; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-cod { width: 18mm; text-align: right; padding-right: 3mm; font-weight: bold; }
+.d-desc { width: 128mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-est { width: 35mm; text-align: right; font-weight: bold; }
+
+.line-2 {
+    display: flex;
+    font-size: 10pt;
+    align-items: baseline;
+    margin-top: 0.4mm;
+}
+.f-label { font-weight: bold; font-size: 10pt; color: #000; }
+.f-val { margin-left: 1.5mm; margin-right: 5mm; font-size: 10pt; }
+.f-dif-val { margin-left: 1.5mm; font-size: 10pt; font-weight: bold; color: #b30000; }
+
+.summary-band {
+    margin-top: 2mm;
+    padding-top: 1.5mm;
+    border-top: 2px solid #000000;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+.sum-label {
+    font-size: 16pt;
+    font-weight: bold;
+    margin-right: 4mm;
+}
+.sum-val {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #b30000;
+}
+.page-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 8.5pt;
+    color: #444444;
+}
+.page-footer-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 8pt;
+    color: #777777;
+}
+</style>
+</head>
+<body>
+<div class="report-container">
+
+    <div class="header-band">
+        <div class="company-title">ZE GRANDE DE MIGUEL COUTO MATERIAL DE CONSTRU�AO LTDA</div>
+        <div class="columns-header">
+            <div class="col-h-deposito">Depósito</div>
+            <div class="col-h-produto">Produto:</div>
+            <div class="col-h-estoque">Estoque Atual:</div>
+        </div>
+    </div>
+
+    <div class="details-container">
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">7565</div>
+                <div class="d-desc">AREIA MT LAVADA DE 1� COLOCADO NA CAL�ADA ATE 5KM</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">144,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">270,50</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">126,50</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">9215</div>
+                <div class="d-desc">PISO ROCHA PR7066 C3,43MT 70X70 7P EX</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">123,48</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">123,48</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">6031</div>
+                <div class="d-desc">REVESTIMENTO INOUT PHD36760A CX1,69MT 35X60 8P�S</div>
+                <div class="d-est">1,69</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">160,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">278,70</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">118,70</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">5467</div>
+                <div class="d-desc">PISO VIVENCE 160101 CX2,04MT 32X58 11P�S</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">116,12</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">116,12</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">1987</div>
+                <div class="d-desc">PREGO 10X10 GRAMA</div>
+                <div class="d-est">782,40</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">112,20</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">112,20</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">135</div>
+                <div class="d-desc">JOELHO SOLD 20X45</div>
+                <div class="d-est">12,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">50,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">161,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">111,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">3540</div>
+                <div class="d-desc">PE�A PISO AVULSA EM HD</div>
+                <div class="d-est">62,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">111,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">111,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">5796</div>
+                <div class="d-desc">PISO VIVA PISOS 58025 PEI3 58X58  CX2,35MT 7 P�AS</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">180,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">289,95</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">109,95</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">9189</div>
+                <div class="d-desc">PISO ROCHA R7014 CX3,43MT 70X70 7P�S</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">109,76</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">109,76</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">7205</div>
+                <div class="d-desc">CONDUITE 1' MT</div>
+                <div class="d-est">10,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">109,50</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">109,50</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">6354</div>
+                <div class="d-desc">PISO ROCHA FORTE 5757532 CX3,30MT 10P�S</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">96,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">200,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">104,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">2009</div>
+                <div class="d-desc">PREGO 19X36 GRAMA</div>
+                <div class="d-est">500,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">100,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">100,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">5990</div>
+                <div class="d-desc">TELHA ONDULADA BRASILIT 3,66X1,10</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">97,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">97,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">2167</div>
+                <div class="d-desc">CONECTOR CABO NET ANTENA RG6/RG59</div>
+                <div class="d-est">39,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">96,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">96,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">4588</div>
+                <div class="d-desc">PISO VICTORIA GRES 57150 CX 2,50 10PCS</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">94,00</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">94,00</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">6118</div>
+                <div class="d-desc">PISO VIVENCE 170087 PEI4 CX 2,32 M  7 P�S</div>
+                <div class="d-est">0,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">91,72</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">91,72</span>
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="line-1">
+                <div class="d-dep">Z� GRANDE</div>
+                <div class="d-cod">2001</div>
+                <div class="d-desc">PREGO 16X24 GRAMA</div>
+                <div class="d-est">334,00</div>
+            </div>
+            <div class="line-2">
+                <span class="f-label">Qtd Entrada Total:</span>
+                <span class="f-val">0,00</span>
+                <span class="f-label">Qtd Venda Total:</span>
+                <span class="f-val">90,50</span>
+                <span class="f-label">Dif.:</span>
+                <span class="f-dif-val">90,50</span>
+            </div>
+        </div>
+   </div>
+    <div class="summary-band">
+        <span class="sum-label">Diferença Total:</span>
+        <span class="sum-val">382.257,10</span>
+    </div>
+
+    <div class="page-footer-left">ReportBuilder 21.02 — FireDAC (AUDITORIA_ENTRADA_SAIDA)</div>
+    <div class="page-footer">Página 5 de 84</div>
+</div>
+</body>
+</html>

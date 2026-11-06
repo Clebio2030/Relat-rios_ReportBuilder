@@ -1,0 +1,566 @@
+{
+  "nodes": [
+    {
+      "id": "agents_md",
+      "label": "Diretrizes & Conhecimento Permanente AGENTS.md",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_readme",
+      "label": "Cérebro de Notas Automec",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_01_tabelas_configuracao",
+      "label": "Doc Tabela CONFIGURACAO",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\CONFIGURACAO.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_01_tabelas_ctareceber_prov",
+      "label": "Doc Tabela CTARECEBER_PROV",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\CTARECEBER_PROV.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_01_tabelas_notafiscal",
+      "label": "Doc Tabela NOTAFISCAL",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\NOTAFISCAL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_01_tabelas_recebto",
+      "label": "Doc Tabela RECEBTO",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\RECEBTO.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_01_tabelas_saidaestoque",
+      "label": "Doc Tabela SAIDAESTOQUE",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\SAIDAESTOQUE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "label": "Dicionário de Status SAIDAESTOQUE",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "label": "Diferença Pedido Normal vs Troca",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\DIFERENCA_PEDIDO_VS_TROCA.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "label": "Regra Emissão Fiscal vs Não Emitido",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "label": "Regra Formas de Pagamento e Dinheiro",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\FORMAS_DE_PAGAMENTO_E_DINHEIRO.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "label": "Especificação da View NAO_EMITIDO_PEDIDOS",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "automec_brain_rede_neural_html",
+      "label": "Visualizador Rede Neural HTML",
+      "file_type": "document",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\rede_neural.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_status_0_em_aberto",
+      "label": "Status 0: Pedido em Aberto (Digitação / Orçamento)",
+      "file_type": "concept",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_status_1_pedido",
+      "label": "Status 1: Pedido Finalizado sem Documento Fiscal",
+      "file_type": "concept",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_status_3_emitido_fiscal",
+      "label": "Status 3: Venda com Emissão Fiscal Autorizada",
+      "file_type": "concept",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_status_40_troca",
+      "label": "Status 40: Troca / Devolução de Mercadoria",
+      "file_type": "concept",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\DIFERENCA_PEDIDO_VS_TROCA.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_status_2_42_cancelado",
+      "label": "Status 2 e 42: Cancelados / Estornados",
+      "file_type": "concept",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rationale_risco_fiscal_dimp",
+      "label": "Risco Fiscal DIMP (Cruzamento Cartão/PIX com SEFAZ)",
+      "file_type": "rationale",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rationale_exclusao_dinheiro",
+      "label": "Regra de Exclusão de Dinheiro na Auditoria",
+      "file_type": "rationale",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\FORMAS_DE_PAGAMENTO_E_DINHEIRO.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rationale_agrupamento_1_linha",
+      "label": "Agrupamento 1 Linha por Pedido (GROUP BY SE.NRPEDIDO)",
+      "file_type": "rationale",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_database_firebird",
+      "label": "Firebird 5.0 DB (MIAUTOMEC.FDB)",
+      "file_type": "concept",
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "automec_brain_01_tabelas_saidaestoque",
+      "target": "saidaestoque",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\SAIDAESTOQUE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_01_tabelas_ctareceber_prov",
+      "target": "ctareceber_prov",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\CTARECEBER_PROV.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_01_tabelas_configuracao",
+      "target": "configuracao",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\CONFIGURACAO.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_01_tabelas_recebto",
+      "target": "recebto",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\RECEBTO.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_01_tabelas_notafiscal",
+      "target": "notafiscal",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\NOTAFISCAL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "target": "nao_emitido_pedidos_nao_emitido_pedidos",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "agents_md",
+      "target": "concept_database_firebird",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AGENTS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "agents_md",
+      "target": "automec_brain_readme",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AGENTS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_readme",
+      "target": "automec_brain_rede_neural_html",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "target": "concept_status_0_em_aberto",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "target": "concept_status_1_pedido",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "target": "concept_status_3_emitido_fiscal",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "target": "concept_status_40_troca",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_02_status_e_ciclo_de_vida_status_saidaestoque",
+      "target": "concept_status_2_42_cancelado",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "target": "concept_status_40_troca",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\DIFERENCA_PEDIDO_VS_TROCA.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_02_status_e_ciclo_de_vida_diferenca_pedido_vs_troca",
+      "target": "concept_status_1_pedido",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\DIFERENCA_PEDIDO_VS_TROCA.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "target": "rationale_risco_fiscal_dimp",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "target": "concept_status_1_pedido",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_03_regras_de_negocio_emissao_fiscal_vs_nao_emitido",
+      "target": "concept_status_3_emitido_fiscal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\EMISSAO_FISCAL_VS_NAO_EMITIDO.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "target": "rationale_exclusao_dinheiro",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\FORMAS_DE_PAGAMENTO_E_DINHEIRO.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_03_regras_de_negocio_formas_de_pagamento_e_dinheiro",
+      "target": "recebto",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\03_Regras_De_Negocio\\FORMAS_DE_PAGAMENTO_E_DINHEIRO.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "target": "rationale_agrupamento_1_linha",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "target": "rationale_exclusao_dinheiro",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "target": "concept_status_0_em_aberto",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "target": "concept_status_1_pedido",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "target": "concept_status_40_troca",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "automec_brain_04_views_e_consultas_nao_emitido_pedidos",
+      "target": "concept_status_2_42_cancelado",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "hyperedge_erp_core_schema",
+      "label": "Tabelas Centrais do ERP Automec (Venda, Financeiro, Fiscal, Cadastros)",
+      "nodes": [
+        "saidaestoque",
+        "ctareceber_prov",
+        "configuracao",
+        "recebto",
+        "notafiscal"
+      ],
+      "relation": "implement",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\01_Tabelas\\SAIDAESTOQUE.md"
+    },
+    {
+      "id": "hyperedge_status_lifecycle",
+      "label": "Ciclo de Vida do Pedido (Em Aberto -> Pedido -> Fiscal ou Troca/Cancelado)",
+      "nodes": [
+        "concept_status_0_em_aberto",
+        "concept_status_1_pedido",
+        "concept_status_3_emitido_fiscal",
+        "concept_status_40_troca",
+        "concept_status_2_42_cancelado"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\02_Status_E_Ciclo_De_Vida\\STATUS_SAIDAESTOQUE.md"
+    },
+    {
+      "id": "hyperedge_fiscal_audit_view",
+      "label": "Mecanismo de Auditoria Fiscal de Vendas Não Emitidas e Não Dinheiro",
+      "nodes": [
+        "nao_emitido_pedidos_nao_emitido_pedidos",
+        "rationale_agrupamento_1_linha",
+        "rationale_exclusao_dinheiro",
+        "rationale_risco_fiscal_dimp"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Área de Trabalho\\Implantação\\Relatórios_IA\\AUTOMEC_BRAIN\\04_Views_E_Consultas\\NAO_EMITIDO_PEDIDOS.md"
+    }
+  ],
+  "input_tokens": 1250,
+  "output_tokens": 850
+}
